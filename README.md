@@ -1,38 +1,133 @@
-# create-svelte
+# Academic Hub
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+<div align="center">
+  <img src="path/to/your/logo.png" alt="Academic Hub Logo" width="200">
+</div>
 
-## Creating a project
+<p align="center">
+  <a href="https://github.com/yourusername/academic-hub">
+    <img src="https://img.shields.io/badge/github-academic--hub-blue?style=for-the-badge&logo=github" alt="GitHub">
+  </a>
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge" alt="Version">
+</p>
 
-If you're seeing this, you've probably already done this step. Congrats!
+<p align="center">
+  A comprehensive Desktop + Web application for managing critical data in academic institutes.
+</p>
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Table of Contents
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+- [Usage](#usage)
+- [Database Schema](#database-schema)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-## Developing
+## Features
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Academic Hub offers a robust set of features designed to streamline academic data management:
 
-```bash
-npm run dev
+- **Comprehensive Data Management**: Handle student records, course information, faculty details, and more.
+- **Real-time Updates**: Utilize Supabase's real-time capabilities for instant data synchronization.
+- **Cross-platform Compatibility**: Access the system via web browsers or as a desktop application.
+- **Scalable Architecture**: Designed to handle large volumes of data efficiently.
+- **User-friendly Interface**: Intuitive design using DaisyUI for enhanced user experience.
+- **Secure Authentication**: Implement role-based access control for data protection.
+- **Reporting and Analytics**: Generate insightful reports on various academic metrics.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+## Technology Stack
 
-## Building
+- **Backend**:
+    - [Supabase](https://supabase.io/) for database and API
+    - PostgreSQL for robust data storage
+- **Frontend**:
+    - [SvelteKit](https://kit.svelte.dev/) for efficient web development
+    - [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
+- **Desktop Application**:
+    - [Tauri](https://tauri.app/) for cross-platform desktop development
 
-To create a production version of your app:
+## Getting Started
 
-```bash
-npm run build
-```
+### Prerequisites
 
-You can preview the production build with `npm run preview`.
+Before you begin, ensure you have the following installed:
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- [Node.js](https://nodejs.org/) (v14 or later)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Rust](https://www.rust-lang.org/) (for Tauri desktop app development)
+- [PostgreSQL](https://www.postgresql.org/) (v12 or later)
+
+### Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/academic-hub.git
+   cd academic-hub
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Set up your Supabase project and update the configuration in `src/lib/supabase.js`.
+
+4. Run the development server:
+   ```
+   npm run dev
+   ```
+
+5. For desktop app development, install Tauri CLI:
+   ```
+   npm install -g @tauri-apps/cli
+   ```
+
+## Usage
+
+- Access the web application at `http://localhost:5173`. (Port may vary based on your configuration)
+- To run the desktop application:
+  ```
+  npm run tauri dev
+  ```
+
+## Database Schema
+
+![Database Schema](./static/db_erd.png)
+
+Our database schema is designed to efficiently manage academic data.
+
+Key features include the separation in some schemas for different types of data, such as:
+- Infrastructure
+- Library
+- School (Academic)
+- Authentication
+
+This separation allows for better organization and management of data.  Additionally, we have implemented relationships between tables to ensure data integrity and consistency.
+
+For a detailed view of the schema, please refer to the image above.
+
+## API Documentation
+
+API documentation is available at `/api/docs` when running the development server. It provides detailed information about available endpoints, request/response formats, and authentication requirements.
+
+## Contributing
+
+We welcome contributions to Academic Hub! Please follow these steps to contribute:
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request
+
+Please read our [Contributing Guide](CONTRIBUTING.md) for more details.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

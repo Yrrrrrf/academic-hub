@@ -146,3 +146,14 @@ vite.config.ts.timestamp-*
 # project junk...
 *.log
 /static/uploads/*
+
+bun.lockb
+
+package-lock.json
+
+# Ignore the build directory
+/build
+package-lock.json
+
+
+/keys/*
