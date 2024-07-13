@@ -1,8 +1,7 @@
-# Academic Hub
-
-<div align="center">
-  <img src="path/to/your/logo.png" alt="Academic Hub Logo" width="200">
-</div>
+<h1 align="center">
+   <img src="./static/favicon.png" alt="Some Store Icon" width="128">
+   <div align="center">Academic Hub</div>
+</h1>
 
 <p align="center">
   <a href="https://github.com/yourusername/academic-hub">
@@ -63,6 +62,10 @@ Before you begin, ensure you have the following installed:
 - [Rust](https://www.rust-lang.org/) (for Tauri desktop app development)
 - [PostgreSQL](https://www.postgresql.org/) (v12 or later)
 
+[//]: # (VITE_SUPABASE_URL=your_supabase_project_url)
+
+[//]: # (VITE_SUPABASE_ANON_KEY=your_supabase_anon_key)
+
 ### Installation
 
 1. Clone the repository:
@@ -76,7 +79,7 @@ Before you begin, ensure you have the following installed:
    npm install
    ```
 
-3. Set up your Supabase project and update the configuration in `src/lib/supabase.js`.
+3. Set up your Supabase project and update the configuration in `src/lib/supabase.ts`.
 
 4. Run the development server:
    ```
