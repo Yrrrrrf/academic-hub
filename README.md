@@ -4,11 +4,11 @@
 </h1>
 
 <p align="center">
-  <a href="https://github.com/yourusername/academic-hub">
+  <a href="https://github.com/Yrrrrrf/academic-hub">
     <img src="https://img.shields.io/badge/github-academic--hub-blue?style=for-the-badge&logo=github" alt="GitHub">
   </a>
   <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge" alt="Version">
 </p>
 
 <p align="center">
@@ -33,7 +33,7 @@
 Academic Hub offers a robust set of features designed to streamline academic data management:
 
 - **Comprehensive Data Management**: Handle student records, course information, faculty details, and more.
-- **Real-time Updates**: Utilize Supabase's real-time capabilities for instant data synchronization.
+- **Real-time Updates**: Utilize PLpgSQL real-time capabilities for instant data synchronization.
 - **Cross-platform Compatibility**: Access the system via web browsers or as a desktop application.
 - **Scalable Architecture**: Designed to handle large volumes of data efficiently.
 - **User-friendly Interface**: Intuitive design using DaisyUI for enhanced user experience.
@@ -101,7 +101,7 @@ Before you begin, ensure you have the following installed:
 
 ## Database Schema
 
-![Database Schema](./static/db_erd.png)
+![Database Schema](./static/db_erd.png "db main schema")
 
 Our database schema is designed to efficiently manage academic data.
 
