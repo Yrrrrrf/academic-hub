@@ -44,7 +44,7 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 
 - **Backend**:
     - [Supabase](https://supabase.io/) for database and API
-    - PostgreSQL for robust data storage
+    - [PostgreSQL](https://www.postgresql.org/) for robust data storage
 - **Frontend**:
     - [SvelteKit](https://kit.svelte.dev/) for efficient web development
     - [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
@@ -57,9 +57,8 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v14 or later)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [Rust](https://www.rust-lang.org/) (for Tauri desktop app development)
+- [Node.js](https://nodejs.org/) (v14 or later) or [Deno](https://deno.land/) or [bun](https://bun.sh/)
+- [npm](https://www.npmjs.com/),  or [yarn](https://yarnpkg.com/)
 - [PostgreSQL](https://www.postgresql.org/) (v12 or later)
 
 [//]: # (VITE_SUPABASE_URL=your_supabase_project_url)
@@ -69,55 +68,48 @@ Before you begin, ensure you have the following installed:
 ### Installation
 
 1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/academic-hub.git
-   cd academic-hub
+   ```bash
+   git clone https://github.com/Yrrrrrf/academic-hub.git
+   cd academic-hub  # Change to project directory
    ```
 
 2. Install dependencies:
-   ```
+   ```bash
    npm install
    ```
 
 3. Set up your Supabase project and update the configuration in `src/lib/supabase.ts`.
 
 4. Run the development server:
-   ```
-   npm run dev
+   ```bash
+   npm run dev  # or `bun` if you are using bun
    ```
 
 5. For desktop app development, install Tauri CLI:
-   ```
-   npm install -g @tauri-apps/cli
+   ```bash
+   npm install -g @tauri-apps/cli   # Install Tauri CLI
    ```
 
 ## Usage
 
 - Access the web application at `http://localhost:5173`. (Port may vary based on your configuration)
 - To run the desktop application:
-  ```
-  npm run tauri dev
+  ```bash
+  npm run tauri dev  # Start the Tauri dev server
   ```
 
 ## Database Schema
 
+Our database schema is designed to efficiently manage academic data. 
+Including the separation in some schemas that help to organize the data in a more structured way.
+
 ![Database Schema](./static/db_erd.png "db main schema")
 
-Our database schema is designed to efficiently manage academic data.
-
-Key features include the separation in some schemas for different types of data, such as:
-- Infrastructure
-- Library
-- School (Academic)
-- Authentication
-
-This separation allows for better organization and management of data.  Additionally, we have implemented relationships between tables to ensure data integrity and consistency.
-
-For a detailed view of the schema, please refer to the image above.
+This separation allows for better organization and management of data.
 
 ## API Documentation
 
-API documentation is available at `/api/docs` when running the development server. It provides detailed information about available endpoints, request/response formats, and authentication requirements.
+API documentation is available at `/{port}/docs` when running the development server. It provides detailed information about available endpoints, request/response formats, and authentication requirements.
 
 ## Contributing
 
