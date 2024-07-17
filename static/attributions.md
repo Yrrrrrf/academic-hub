@@ -1,7 +1,14 @@
 # Attributions
 
-All the icons used in this project are from [flaticon.com](https://www.flaticon.com/).
+This file records the attributions for all the assets used in the project.
 
+## Icons
 | Description | Icon |
 | ---- | ---- |
-| [BDairy](https://www.flaticon.com/free-icon/diary_1141801) | <img src="./icons/diary.png" width="64"> |
+| [BDairy](https://www.flaticon.com/free-icon/diary_1141801) | <img src="./favicon.png" width="64"> |
+
+
+## Images
+| Description | Icon |
+| ---- | ---- |
+| [DB ERD](db_erd.png) | <img src="./db_erd.png" width="512"> |

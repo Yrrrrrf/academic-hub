@@ -73,8 +73,6 @@ CREATE TABLE hr_management.employee (
     ) STORED
 );
 
--- Add descriptive comments to the employee table and its columns
-COMMENT ON TABLE hr_management.employee IS 'Central repository for all employee information across the institution';
 COMMENT ON COLUMN hr_management.employee.id IS 'Unique identifier for each employee';
 COMMENT ON COLUMN hr_management.employee.first_name IS 'Employee''s first name';
 COMMENT ON COLUMN hr_management.employee.last_name IS 'Employee''s last name';
@@ -93,8 +91,6 @@ CREATE TABLE hr_management.department (
     head_id UUID REFERENCES hr_management.employee(id)
 );
 
--- Add descriptive comments to the department table and its columns
-COMMENT ON TABLE hr_management.department IS 'Represents different departments within the institution';
 COMMENT ON COLUMN hr_management.department.id IS 'Unique identifier for each department';
 COMMENT ON COLUMN hr_management.department.name IS 'Official name of the department';
 COMMENT ON COLUMN hr_management.department.description IS 'Brief description of the department''s function or purpose';
@@ -113,8 +109,6 @@ CREATE TABLE hr_management.position (
     description TEXT
 );
 
--- Add descriptive comments to the position table and its columns
-COMMENT ON TABLE hr_management.position IS 'Defines various job positions available within the institution';
 COMMENT ON COLUMN hr_management.position.id IS 'Unique identifier for each position';
 COMMENT ON COLUMN hr_management.position.title IS 'Official title of the position';
 COMMENT ON COLUMN hr_management.position.description IS 'Detailed description of the position''s responsibilities and requirements';
@@ -130,8 +124,6 @@ CREATE TABLE hr_management.employee_position (
     PRIMARY KEY (employee_id, position_id, start_date)
 );
 
--- Add descriptive comments to the employee_position table and its columns
-COMMENT ON TABLE hr_management.employee_position IS 'Maps employees to their positions, including historical data';
 COMMENT ON COLUMN hr_management.employee_position.employee_id IS 'ID of the employee';
 COMMENT ON COLUMN hr_management.employee_position.position_id IS 'ID of the position held by the employee';
 COMMENT ON COLUMN hr_management.employee_position.start_date IS 'Date when the employee started in this position';
@@ -147,8 +139,6 @@ CREATE TABLE hr_management.teacher (
     tenure_status VARCHAR(20)
 );
 
--- Add descriptive comments to the teacher table and its columns
-COMMENT ON TABLE hr_management.teacher IS 'Contains additional information specific to employees in teaching roles';
 COMMENT ON COLUMN hr_management.teacher.employee_id IS 'ID of the employee who is a teacher (references employee table)';
 COMMENT ON COLUMN hr_management.teacher.specialization IS 'Teacher''s area of academic specialization';
 COMMENT ON COLUMN hr_management.teacher.academic_rank IS 'Current academic rank (e.g., Assistant Professor, Associate Professor, Professor)';
@@ -166,8 +156,6 @@ CREATE TABLE hr_management.leave (
     approved_by UUID REFERENCES hr_management.employee(id)
 );
 
--- Add descriptive comments to the leave table and its columns
-COMMENT ON TABLE hr_management.leave IS 'Tracks and manages employee leave requests and approvals';
 COMMENT ON COLUMN hr_management.leave.id IS 'Unique identifier for each leave request';
 COMMENT ON COLUMN hr_management.leave.employee_id IS 'ID of the employee requesting leave';
 COMMENT ON COLUMN hr_management.leave.leave_type IS 'Type of leave requested (e.g., Vacation, Sick, Sabbatical)';

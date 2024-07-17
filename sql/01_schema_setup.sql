@@ -1,10 +1,19 @@
 -- File: 01_schema_setup.sql
---     Sets up schemas and roles for the database.
+--     Sets up schemas and roles for the Academic Hub database.
+--
+-- # Purpose:
+--     This script creates the necessary schemas for the Academic Hub system and sets up
+--     appropriate roles with specific permissions for each schema. It establishes the
+--     foundational structure for managing various aspects of an academic institution,
+--     from infrastructure and HR to academic programs and student management.
 --
 -- # Script steps:
 --     1. Creates specified schemas with a logical structure
 --     2. Creates roles with appropriate permissions
 --     3. Establishes cross-schema access where necessary
+--
+-- # Note:
+--     Ensure this script is run by a user with sufficient privileges to create schemas and roles.
 
 -- Enable psql command echoing and stop on error
 \set ON_ERROR_STOP on
@@ -68,21 +77,21 @@ $$ LANGUAGE plpgsql;
 SELECT create_schemas(ARRAY[
     -- Core schemas
     --     These are the main schemas that contain core data for the ORGANIZATION
-    'auth',                      -- For authentication and authorization
+    'auth',                       -- For authentication and authorization
     'infrastructure_management',  -- For infrastructure-related (buildings, equipment, etc.)
-    'hr_management',             -- For HR-related (employees, payroll, etc.)
+    'hr_management',              -- For HR-related (employees, payroll, etc.)
 
     -- Functional schemas
     --     These schemas are related to specific functions within the organization
-    'course_management',         -- For course-related (schedules, assignments, etc.)
-    'academic_management',       -- For academic management (academic programs, syllabi, etc.)
-    'student_management',        -- For student-related (enrollment, grades, etc.)
-    'library_management'        -- For library-related (books, loans, etc.)
+    'academic_management',        -- For academic management (academic programs, syllabi, etc.)
+    'course_offering_management', -- For course offering-related (schedules, assignments, etc.)
+    'student_management',         -- For student-related (enrollment, grades, etc.)
+    'library_management'          -- For library-related (books, loans, etc.)
 
     -- Additional schemas (commented out for future use)
     --     These schemas are for additional functions or departments
-    -- 'finance_management',     -- For finance-related (budgets, expenses, etc.)
---     'research_management'     -- For research-related (projects, publications, etc.)
+    -- 'finance_management',      -- For finance-related (budgets, expenses, etc.)
+    -- 'research_management'      -- For research-related (projects, publications, etc.)
 ]);
 
 -- Create roles and grant privileges for each schema
@@ -109,26 +118,26 @@ SELECT create_and_grant_role(
     ARRAY['academic_management']  -- Read access for academic roles
 );
 
--- Course Management Schema
---     Purpose: Handles the operational aspects of courses, including scheduling and delivery.
---     Rationale: Separates the dynamic, term-based course operations from the more stable academic program structure,
---                allowing for efficient handling of course-specific data and processes.
-SELECT create_and_grant_role(
-    'course_admin',
-    'course_password',
-    ARRAY['course_management'],
-    ARRAY['academic_management', 'hr_management', 'student_management']  -- Read access for related data
-);
-
 -- Academic Management Schema
 --     Purpose: Manages academic programs, curricula, and long-term academic planning.
---     Rationale: Focuses on the structural aspects of academic offerings, separate from the
---                operational course management, supporting strategic academic planning and accreditation processes.
+--     Rationale: Focuses on the structural aspects of academic offerings, supporting
+--                strategic academic planning and accreditation processes.
 SELECT create_and_grant_role(
     'academic_admin',
     'academic_password',
-    ARRAY['academic_management'],
-    ARRAY['hr_management', 'course_management', 'student_management']  -- Read access for comprehensive academic overview
+    ARRAY['academic_management', 'course_offering_management'],
+    ARRAY['student_management', 'library_management']  -- Read access for student and library data
+);
+
+-- Course Offering Management Schema
+--     Purpose: Handles the operational aspects of course offerings, including scheduling and delivery.
+--     Rationale: Manages the dynamic, term-based course operations, allowing for efficient
+--                handling of course offering-specific data and processes.
+SELECT create_and_grant_role(
+    'course_offering_admin',
+    'course_offering_password',
+    ARRAY['course_offering_management'],
+    ARRAY['academic_management', 'hr_management']  -- Read access for related data
 );
 
 -- Student Management Schema
@@ -139,7 +148,7 @@ SELECT create_and_grant_role(
     'student_admin',
     'student_password',
     ARRAY['student_management', 'auth'],
-    ARRAY['academic_management', 'course_management']  -- Read access for comprehensive student management
+    ARRAY['academic_management', 'course_offering_management', 'library_management']  -- Read access for academic and library data
 );
 
 -- Library Management Schema
@@ -150,8 +159,9 @@ SELECT create_and_grant_role(
     'library_admin',
     'library_password',
     ARRAY['library_management'],
-    ARRAY['student_management', 'academic_management']  -- Read access for user info and academic resources
+    ARRAY['student_management', 'infrastructure_management']  -- Read access for student, academic, and infrastructure data
 );
+
 
 -- -- todo: Create the 'additional-schemas' roles and grant privileges
 -- -- -- Finance Management Schema

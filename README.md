@@ -43,13 +43,14 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 ## Technology Stack
 
 - **Backend**:
-    - [Supabase](https://supabase.io/) for database and API
-    - [PostgreSQL](https://www.postgresql.org/) for robust data storage
+    <!-- - [Supabase](https://supabase.io/) for database and API -->
+	- [FastAPI](https://www.python.org/) for backend development
+	- [PostgreSQL](https://www.postgresql.org/) for robust data storage
 - **Frontend**:
-    - [SvelteKit](https://kit.svelte.dev/) for efficient web development
-    - [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
+	- [SvelteKit](https://kit.svelte.dev/) for efficient web development
+   	- [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
 - **Desktop Application**:
-    - [Tauri](https://tauri.app/) for cross-platform desktop development
+	- [Tauri](https://tauri.app/) for cross-platform desktop development
 
 ## Getting Started
 
@@ -57,46 +58,45 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 
 Before you begin, ensure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v14 or later) or [Deno](https://deno.land/) or [bun](https://bun.sh/)
-- [npm](https://www.npmjs.com/),  or [yarn](https://yarnpkg.com/)
 - [PostgreSQL](https://www.postgresql.org/) (v12 or later)
-
-[//]: # (VITE_SUPABASE_URL=your_supabase_project_url)
-
-[//]: # (VITE_SUPABASE_ANON_KEY=your_supabase_anon_key)
+- [Python](https://www.python.org/) (v3.6 or later)
+- [npm](https://www.npmjs.com/),  or [yarn](https://yarnpkg.com/)
+- [Node.js](https://nodejs.org/) (v14 or later) or [Deno](https://deno.land/) or [bun](https://bun.sh/)
 
 ### Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/Yrrrrrf/academic-hub.git
-   cd academic-hub  # Change to project directory
-   ```
+```bash
+git clone https://github.com/Yrrrrrf/academic-hub.git
+cd academic-hub  # Change to project directory
+```
 
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. Set up your Supabase project and update the configuration in `src/lib/supabase.ts`.
+3. Set up the main db using the `*.sql` files in the [`sql`](./sql) directory.
+	- Execute the [`00_db_setup.sql`](./sql/00_db_setup.sql) file to create the main database.
+	- Execute the rest of the files in the order using the `academic_hub_owner` role to create the necessary schemas and tables.
 
 4. Run the development server:
-   ```bash
-   npm run dev  # or `bun` if you are using bun
-   ```
+```bash
+npm run dev  # or `bun` if you are using bun
+```
 
 5. For desktop app development, install Tauri CLI:
-   ```bash
-   npm install -g @tauri-apps/cli   # Install Tauri CLI
-   ```
+```bash
+npm install -g @tauri-apps/cli   # Install Tauri CLI
+```
 
 ## Usage
 
 - Access the web application at `http://localhost:5173`. (Port may vary based on your configuration)
 - To run the desktop application:
-  ```bash
-  npm run tauri dev  # Start the Tauri dev server
-  ```
+```bash
+npm run tauri dev  # Start the Tauri dev server
+```
 
 ## Database Schema
 

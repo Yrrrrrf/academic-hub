@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>4328a082-ec10-4547-b15a-c2759ef69836</OriginalElement>
+  <nodes>
+    <node x="1412.1226699903705" y="194.72979330007183">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_topic</node>
+    <node x="1964.9660425259585" y="377.0283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.author</node>
+    <node x="-243.20783928797061" y="73.34175338560226">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.enrollment</node>
+    <node x="-1042.2509455927766" y="-728.0158297521382">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.department</node>
+    <node x="-1394.9463079116174" y="59.578807495211436">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program</node>
+    <node x="605.7792974547824" y="-438.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.room</node>
+    <node x="1113.4509837225764" y="-179.58311228422212">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.library</node>
+    <node x="-1051.2509455927768" y="-155.44623598304906">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.syllabus</node>
+    <node x="1114.9509837225764" y="353.0283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_copy</node>
+    <node x="-493.9353417826255" y="-1132.8364926587897">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.leave</node>
+    <node x="1402.6226699903705" y="587.5833554404444">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.publisher</node>
+    <node x="1078.4509837225764" y="-426.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.building</node>
+    <node x="-619.9793924403737" y="-1365.3211546687687">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.teacher</node>
+    <node x="-690.9793924403737" y="-776.0158297521382">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee</node>
+    <node x="843.2792974547824" y="329.0283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.loan</node>
+    <node x="-145.70783928797061" y="317.0283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.student</node>
+    <node x="-1032.2509455927766" y="-1084.8364926587897">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.position</node>
+    <node x="150.08943613388033" y="-438.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_schedule</node>
+    <node x="157.58943613388033" y="-740.0158297521382">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.academic_term</node>
+    <node x="-744.706158722517" y="-1108.8364926587897">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee_position</node>
+    <node x="-162.20783928797061" y="-450.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering</node>
+    <node x="-1049.2509455927768" y="-450.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course</node>
+    <node x="1402.6226699903705" y="33.534141126159284">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.topic</node>
+    <node x="-1418.9463079116174" y="-155.44623598304906">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program_course</node>
+    <node x="1386.6226699903705" y="341.0283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book</node>
+    <node x="-170.70783928797061" y="-728.0158297521382">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.instructor_assignment</node>
+    <node x="-694.7172548261036" y="49.34175338560226">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.grade</node>
+    <node x="1385.1226699903705" y="-389.78554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty_building</node>
+    <node x="-1387.9463079116174" y="-402.28554033087516">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course_prerequisite</node>
+    <node x="1395.6226699903705" y="-155.58311228422212">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty</node>
+    <node x="1693.2943562581645" y="377.5283135006929">4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_author</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_copy" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book" relationship="REFERENCES">
+      <point x="73.5" y="0.0" />
+      <point x="-91.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee_position" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="0.0" y="80.0" />
+      <point x="-126.72676628214333" y="-116.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.loan" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_copy" relationship="REFERENCES">
+      <point x="73.5" y="0.0" />
+      <point x="-73.5" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.library" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty_building" relationship="REFERENCES">
+      <point x="75.0" y="-61.5" />
+      <point x="1470.6226699903705" y="-173.08311228422212" />
+      <point x="0.0" y="43.5" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.loan" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.student" relationship="REFERENCES">
+      <point x="-73.5" y="0.0" />
+      <point x="86.5" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.enrollment" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.student" relationship="REFERENCES">
+      <point x="-1.6071202938405804E-4" y="80.00024661439775" />
+      <point x="-1.6071202938405804E-4" y="-104.00031350069287" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.room" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.building" relationship="REFERENCES">
+      <point x="193.0" y="0.0" />
+      <point x="-110.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course_prerequisite" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course" relationship="REFERENCES">
+      <point x="102.5" y="15.0" />
+      <point x="-76.5" y="15.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.instructor_assignment" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="-111.5" y="0.0" />
+      <point x="170.5" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee_position" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.position" relationship="REFERENCES">
+      <point x="-97.5" y="0.0" />
+      <point x="69.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.student" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program" relationship="REFERENCES">
+      <point x="-86.5" y="0.0" />
+      <point x="-1285.9464927536233" y="421.0283135006929" />
+      <point x="14.999815157994135" y="92.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.instructor_assignment" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering" relationship="REFERENCES">
+      <point x="-15.0" y="68.0" />
+      <point x="-15.0" y="-104.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.grade" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="-1.2621376142700456" y="-104.0" />
+      <point x="0.0" y="116.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.department" relationship="REFERENCES">
+      <point x="4.500000000000227" y="-104.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.teacher" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="0.0" y="68.0" />
+      <point x="0.0" y="-116.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course" relationship="REFERENCES">
+      <point x="-103.0" y="0.0" />
+      <point x="76.5" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program_course" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course" relationship="REFERENCES">
+      <point x="-1.848420059786804E-4" y="-79.99956521739216" />
+      <point x="-1300.9464927536233" y="-212.14293163522382" />
+      <point x="-972.7504637681161" y="-212.14293163522382" />
+      <point x="4.818246607101173E-4" y="104.00043478260784" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.leave" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="15.0" y="104.0" />
+      <point x="129.04405065774813" y="-116.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_schedule" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.room" relationship="REFERENCES">
+      <point x="89.5" y="0.0" />
+      <point x="783.779" y="-346.28554033087516" />
+      <point x="-15.000297454782412" y="92.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.academic_term" relationship="REFERENCES">
+      <point x="0.0" y="-104.0" />
+      <point x="-59.207839287970614" y="-517.5158297521382" />
+      <point x="239.58943613388033" y="-517.5158297521382" />
+      <point x="0.0" y="80.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_topic" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.topic" relationship="REFERENCES">
+      <point x="0.0" y="-43.5" />
+      <point x="0.0" y="44.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_topic" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book" relationship="REFERENCES">
+      <point x="3.300096295788535E-4" y="43.500206699928185" />
+      <point x="3.300096295788535E-4" y="-80.00031350069287" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.enrollment" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering" relationship="REFERENCES">
+      <point x="14.999839287970616" y="-80.0" />
+      <point x="14.999839287970616" y="104.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_copy" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.library" relationship="REFERENCES">
+      <point x="0.0" y="-68.0" />
+      <point x="0.0" y="68.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.syllabus" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.course" relationship="REFERENCES">
+      <point x="15.00048182466071" y="-80.0" />
+      <point x="15.00048182466071" y="104.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.library" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty" relationship="REFERENCES">
+      <point x="75.00001627742358" y="-2.355418648569696E-4" />
+      <point x="-74.99966999037042" y="-2.355418648569696E-4" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty_building" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty" relationship="REFERENCES">
+      <point x="15.000330009629579" y="43.5" />
+      <point x="15.000330009629579" y="-44.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program_course" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.academic_management.program" relationship="REFERENCES">
+      <point x="0.0" y="80.0" />
+      <point x="0.0" y="-92.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_author" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book" relationship="REFERENCES">
+      <point x="-71.0" y="0.0" />
+      <point x="91.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.publisher" relationship="REFERENCES">
+      <point x="0.0" y="80.0" />
+      <point x="0.0" y="-44.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.department" relationship="REFERENCES">
+      <point x="-170.49960755962638" y="3.556850925860999E-4" />
+      <point x="73.99994559277661" y="3.556850925860999E-4" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.department" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.hr_management.employee" relationship="REFERENCES">
+      <point x="74.0" y="-14.999644314907414" />
+      <point x="-170.5" y="-14.999644314907414" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_schedule" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.course_offering_management.course_offering" relationship="REFERENCES">
+      <point x="-89.5" y="14.999540330875163" />
+      <point x="103.0" y="14.999540330875163" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.book_author" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.library_management.author" relationship="REFERENCES">
+      <point x="71.0" y="0.0" />
+      <point x="-75.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.grade" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.student_management.enrollment" relationship="REFERENCES">
+      <point x="175.5" y="0.0" />
+      <point x="-184.0" y="0.0" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.library" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.building" relationship="REFERENCES">
+      <point x="1.627742358323303E-5" y="-68.00023554186485" />
+      <point x="1.627742358323303E-5" y="80.00019250478817" />
+    </edge>
+    <edge source="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.faculty_building" target="4328a082-ec10-4547-b15a-c2759ef69836.TABLE:academic_hub.infrastructure_management.building" relationship="REFERENCES">
+      <point x="-85.5" y="0.0" />
+      <point x="110.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.6845238095238106" showDependencies="false" x="54.19999999999618" y="-222.70434782608856" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

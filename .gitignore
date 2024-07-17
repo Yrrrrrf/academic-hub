@@ -159,3 +159,4 @@ package-lock.json
 /keys/*
 
 .env
+db_erd_diagram/*

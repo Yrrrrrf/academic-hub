@@ -42,7 +42,6 @@ CREATE TABLE infrastructure_management.building (
 );
 
 -- Add descriptive comments to the building table and its columns
-COMMENT ON TABLE infrastructure_management.building IS 'Stores information about all campus buildings';
 COMMENT ON COLUMN infrastructure_management.building.id IS 'Unique identifier for the building';
 COMMENT ON COLUMN infrastructure_management.building.name IS 'Official name of the building';
 COMMENT ON COLUMN infrastructure_management.building.address IS 'Full postal address of the building';
@@ -68,8 +67,6 @@ CREATE TABLE infrastructure_management.room (
     equipment_details JSONB DEFAULT '{}'  -- Flexible storage for equipment information
 );
 
--- Add descriptive comments to the room table and its columns
-COMMENT ON TABLE infrastructure_management.room IS 'Contains detailed information about individual rooms within campus buildings';
 COMMENT ON COLUMN infrastructure_management.room.id IS 'Unique identifier for the room';
 COMMENT ON COLUMN infrastructure_management.room.room_type IS 'Categorizes the room (e.g., classroom, laboratory) using predefined types';
 COMMENT ON COLUMN infrastructure_management.room.name IS 'Room number or name as it appears on the building directory';
@@ -93,8 +90,6 @@ CREATE TABLE infrastructure_management.faculty (
     name VARCHAR(255) NOT NULL  -- Name of the faculty or department
 );
 
--- Add descriptive comments to the faculty table and its columns
-COMMENT ON TABLE infrastructure_management.faculty IS 'Stores information about academic faculties or departments';
 COMMENT ON COLUMN infrastructure_management.faculty.id IS 'Unique identifier for the faculty';
 COMMENT ON COLUMN infrastructure_management.faculty.name IS 'Official name of the faculty or department';
 
@@ -110,8 +105,6 @@ CREATE TABLE infrastructure_management.faculty_building (
     PRIMARY KEY (faculty_id, building_id)  -- Composite primary key to allow multiple buildings per faculty
 );
 
--- Add descriptive comments to the faculty_building table and its columns
-COMMENT ON TABLE infrastructure_management.faculty_building IS 'Establishes relationships between faculties and the buildings they occupy';
 COMMENT ON COLUMN infrastructure_management.faculty_building.faculty_id IS 'Reference to the faculty occupying the building';
 COMMENT ON COLUMN infrastructure_management.faculty_building.building_id IS 'Reference to the building occupied by the faculty';
 
@@ -127,8 +120,6 @@ CREATE TABLE infrastructure_management.library (
         REFERENCES infrastructure_management.faculty_building(faculty_id, building_id)  -- Ensures library is in a building associated with its faculty
 );
 
--- Add descriptive comments to the library table and its columns
-COMMENT ON TABLE infrastructure_management.library IS 'Contains information about libraries, their associated faculties, and locations';
 COMMENT ON COLUMN infrastructure_management.library.id IS 'Unique identifier for the library';
 COMMENT ON COLUMN infrastructure_management.library.name IS 'Official name of the library';
 COMMENT ON COLUMN infrastructure_management.library.faculty_id IS 'Reference to the faculty associated with this library';
