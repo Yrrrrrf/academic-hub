@@ -59,9 +59,8 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 Before you begin, ensure you have the following installed:
 
 - [PostgreSQL](https://www.postgresql.org/) (v12 or later)
-- [Python](https://www.python.org/) (v3.6 or later)
-- [npm](https://www.npmjs.com/),  or [yarn](https://yarnpkg.com/)
-- [Node.js](https://nodejs.org/) (v14 or later) or [Deno](https://deno.land/) or [bun](https://bun.sh/)
+- [Python](https://www.python.org/) (v3.9 or later)
+- [Node.js](https://nodejs.org/) (v14 or later) or [bun](https://bun.sh/)
 
 ### Installation
 
@@ -73,7 +72,8 @@ cd academic-hub  # Change to project directory
 
 2. Install dependencies:
 ```bash
-npm install
+npm install  # Install Node.js dependencies
+bun install  # Install bun dependencies
 ```
 
 3. Set up the main db using the `*.sql` files in the [`sql`](./sql) directory.

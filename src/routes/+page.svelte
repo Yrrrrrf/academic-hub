@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { testSupabaseConnection } from '$lib/api/testConn';
     import { onMount } from 'svelte';
     import { fade, fly } from 'svelte/transition';
 
@@ -14,13 +13,6 @@
             email: string;
         };
     } | null = null;
-
-    async function checkConnection() {
-        connectionStatus = 'Checking connection and logging in...';
-        const result = await testSupabaseConnection();
-        connectionStatus = result.message;
-        metadataInfo = result.success ? result.data || null : null;
-    }
 
     // ... (rest of your existing script code)
 </script>

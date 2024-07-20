@@ -130,20 +130,6 @@ COMMENT ON COLUMN hr_management.employee_position.start_date IS 'Date when the e
 COMMENT ON COLUMN hr_management.employee_position.end_date IS 'Date when the employee ended this position (if applicable)';
 COMMENT ON COLUMN hr_management.employee_position.is_primary IS 'Indicates if this is the employee''s primary position';
 
--- Teacher table (extends Employee with teacher-specific information)
-DROP TABLE IF EXISTS hr_management.teacher CASCADE;
-CREATE TABLE hr_management.teacher (
-    employee_id UUID PRIMARY KEY REFERENCES hr_management.employee(id),
-    specialization VARCHAR(100),
-    academic_rank VARCHAR(50),
-    tenure_status VARCHAR(20)
-);
-
-COMMENT ON COLUMN hr_management.teacher.employee_id IS 'ID of the employee who is a teacher (references employee table)';
-COMMENT ON COLUMN hr_management.teacher.specialization IS 'Teacher''s area of academic specialization';
-COMMENT ON COLUMN hr_management.teacher.academic_rank IS 'Current academic rank (e.g., Assistant Professor, Associate Professor, Professor)';
-COMMENT ON COLUMN hr_management.teacher.tenure_status IS 'Current tenure status (e.g., Tenured, Tenure-Track, Non-Tenure)';
-
 -- Leave table
 DROP TABLE IF EXISTS hr_management.leave CASCADE;
 CREATE TABLE hr_management.leave (
