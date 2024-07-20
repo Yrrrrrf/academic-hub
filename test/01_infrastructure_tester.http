@@ -1,4 +1,0 @@
-GET 127.0.0.1:8000/views/sales_by_month_by_customer/all?MES=2024-05&extra_data=%7B%7D
-
-
-GET 127.0.0.1:8000/views/sales_by_month_by_customer/all?MES=2024-05&extra_data=%7B%7D
