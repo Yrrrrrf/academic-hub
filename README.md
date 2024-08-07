@@ -1,5 +1,5 @@
 <h1 align="center">
-   <img src="./static/favicon.png" alt="Some Store Icon" width="128">
+   <img src="./frontend/static/favicon.png" alt="Some Store Icon" width="128">
    <div align="center">Academic Hub</div>
 </h1>
 
@@ -103,7 +103,7 @@ npm run tauri dev  # Start the Tauri dev server
 Our database schema is designed to efficiently manage academic data. 
 Including the separation in some schemas that help to organize the data in a more structured way.
 
-![Database Schema](./static/db_erd.png "db main schema")
+![Database Schema](./resources/db_erd.png "db main schema")
 
 This separation allows for better organization and management of data.
 

@@ -10,9 +10,9 @@ load_dotenv()
 
 # * Database Configuration
 DB: dict[str, str] = {key: os.getenv(key) for key in ['DB_OWNER_ADMIN', 'DB_OWNER_PWORD', 'DB_HOST', 'DB_NAME']}
-db_manager = DatabaseManager(f"postgresql://{DB['DB_OWNER_ADMIN']}:{DB['DB_OWNER_PWORD']}@{DB['DB_HOST']}/{DB['DB_NAME']}")
+db_manager: DatabaseManager = DatabaseManager(f"postgresql://{DB['DB_OWNER_ADMIN']}:{DB['DB_OWNER_PWORD']}@{DB['DB_HOST']}/{DB['DB_NAME']}")
 
-# * Generate models and views
+# * Generate models
 db_schemas = [
     "auth",
     "infrastructure",
@@ -23,9 +23,9 @@ db_schemas = [
     "library"
 ]
 
+# * All models: {'schema': {'model_name': (sqlalchemy_model, pydantic_model)}}
 all_models: dict[str, dict[str, Tuple[Type[BaseModel], Type[BaseModel]]]] = {}
 for schema in db_schemas:
     models = generate_models(db_manager.engine, [f"{schema}_management" if schema != "auth" else schema])
     all_models[schema] = models
     globals()[f"{schema}_models"] = models
-
