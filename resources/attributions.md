@@ -5,7 +5,7 @@ This file records the attributions for all the assets used in the project.
 ## Icons
 | Description | Icon |
 | ---- | ---- |
-| [BDairy](https://www.flaticon.com/free-icon/diary_1141801) | <img src="./favicon.png" width="64"> |
+| [BDairy](https://www.flaticon.com/free-icon/diary_1141801) | <img src="../frontend/static/favicon.png" width="128"> |
 
 
 ## Images
