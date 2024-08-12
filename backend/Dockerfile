@@ -3,8 +3,8 @@
 FROM python:3.12-slim
 
 # Metadata and labels
-LABEL maintainer="Academic Hub Team <team@academichub.com>"
-LABEL version="0.2.0"
+# LABEL maintainer="Academic Hub Team <some.team@academichub.com>"
+LABEL version="0.2.1"
 LABEL description="Backend API for Academic Hub - Comprehensive academic data management system"
 
 # Set environment variables
@@ -14,8 +14,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
 # Set the working directory in the container
+# * This Docker image will alloc the 'backend' directory as the working directory
 # This is where our app will live inside the container
-WORKDIR /app
+WORKDIR /backend
 
 # Install system dependencies
 # We use --no-install-recommends to not install recommended but not required deps, reducing image size
@@ -41,6 +42,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy the rest of the application
 # This step is done after installing dependencies to leverage Docker cache
 COPY . .
+# ^ Same as: COPY . /backend
 
 # * Run tests
 # This step ensures that we don't build images with failing tests
@@ -58,9 +60,7 @@ EXPOSE 8000
 # - --workers: The number of worker processes (4 in this case)
 # - app.main:app: The module and app instance to run
 # A more simple command to run the app is:
-CMD ["uvicorn", "app.main:app", "--host", 
+CMD ["uvicorn", "app.main:app", "--host", "--port", "8000"]
 # # Health check
 # # This helps Docker determine if our container is healthy
 # HEALTHCHECK CMD curl --fail http://localhost:8000/health || exit 1
-
-

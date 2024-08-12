@@ -24,6 +24,7 @@ app.add_middleware(
 )
 
 # * Add the routes to the FastAPI application
+app.include_router(test_router)  # ^ Test routes (for testing the FastAPI application)
 # app.include_router(home)
 # app.include_router(basic_dt)
 # app.include_router(views)
