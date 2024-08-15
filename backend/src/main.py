@@ -1,7 +1,7 @@
 """Main file for the FastAPI application"""
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from crud_forge.generators.routes import generate_default_routes
 
 from .config import Config
 from .routes import *
@@ -23,16 +23,18 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
+
 # * Add the routes to the FastAPI application
-app.include_router(test_router)  # ^ Test routes (for testing the FastAPI application)
-# app.include_router(home)
-# app.include_router(basic_dt)
-# app.include_router(views)
+generate_default_routes(app)  # ^ Default routes (for testing the FastAPI application)
+app.include_router(metadata)  # ^ Metadata routes (for getting metadata about the database)
 app.include_router(crud_attr)
 
 
+
 # * Startup event
-print("\n\033[92m" + f"Startup completed successfully!\n\n")
+def on_startup(): print("\n\033[92m" + f"Startup completed successfully!\n\n")
+
+on_startup()  # Run the startup event
 
 
 # * Run the applicationn (if the file is run directly)

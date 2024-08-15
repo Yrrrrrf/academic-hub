@@ -11,16 +11,17 @@ Usage:
     Run this file directly using Python, or use pytest to execute the tests.
     Make sure your API server is running before executing the tests.
 
+    ```
     python test_api.py
-    or
     pytest test_api.py
+    ```
 
 Dependencies:
     - pytest
     - requests
 
-Author: [Your Name]
-Date: [Current Date]
+Author: Reza Campos Fernando Bryan
+Date: 12th August, 2024
 """
 
 import pytest

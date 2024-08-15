@@ -1,0 +1,21 @@
+# Use the following docker-compose.yml file to create a multi-container application with Docker Compose.
+# This file defines two services, backend and frontend. The backend service is built from the Dockerfile in the backend directory, and the frontend service is built from the Dockerfile in the frontend directory.
+# The frontend service depends on the backend service, so the backend service will be started first.
+# The backend service is exposed on port 8000, and the frontend service is exposed on port 3000. The frontend service is dependent on the backend service, so the backend service will be started first.
+version: '3'
+
+services:
+  # Backend service
+  # Build the backend service from the Dockerfile in the backend directory
+  # On fastapi, uvicorn is used to run the server
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+

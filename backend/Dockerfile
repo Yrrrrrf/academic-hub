@@ -3,7 +3,7 @@
 FROM python:3.12-slim
 
 # Metadata and labels
-# LABEL maintainer="Academic Hub Team <some.team@academichub.com>"
+LABEL maintainer="Academic Hub Team <some.team@academichub.com>"
 LABEL version="0.2.1"
 LABEL description="Backend API for Academic Hub - Comprehensive academic data management system"
 

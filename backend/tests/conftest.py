@@ -1,5 +1,14 @@
-import pytest
+"""
+This file contains pytest fixtures that can be used across multiple test files.
+Fixtures defined here are automatically available to all test functions in the project.
+"""
 from fastapi.testclient import TestClient
+# from sqlalchemy.orm import sessionmaker
+# from sqlalchemy import create_engine
+import pytest
+
+# * Own packages
+# from src.database import get_db, Base
 from src.main import app
 
 
@@ -7,18 +16,6 @@ from src.main import app
 def test_client():
     return TestClient(app)
 
-
-# """
-# This file contains pytest fixtures that can be used across multiple test files.
-# Fixtures defined here are automatically available to all test functions in the project.
-# """
-
-# import pytest
-# from fastapi.testclient import TestClient
-# from src.main import app
-# from src.database import get_db, Base
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
 
 # # Test database URL
 # SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
