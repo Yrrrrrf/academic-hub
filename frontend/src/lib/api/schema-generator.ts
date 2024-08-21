@@ -1,4 +1,4 @@
-// src/lib/api/schemaGenerator.ts
+// src/lib/api/schema-generator.ts
 
 import { apiClient } from './client';
 
@@ -7,6 +7,11 @@ export interface ColumnMetadata {
     type: string;
     is_primary_key: boolean;
     is_foreign_key: boolean;
+}
+
+export interface TableMetadata {
+    name: string;
+    columns: ColumnMetadata[];
 }
 
 export interface SchemaTypes {
@@ -47,24 +52,22 @@ function mapPgTypeToTs(pgType: string): string {
 }
 
 /**
- * Generates TypeScript interfaces based on database schema
+ * Fetches schema metadata and generates TypeScript types
+ * @returns Promise resolving to SchemaTypes object
  */
 export async function generateSchemaTypes(): Promise<SchemaTypes> {
-    const schemaTypes: SchemaTypes = {};
-
     try {
         const schemas = await apiClient.request<string[]>('/dt/schemas');
+        const schemaTypes: SchemaTypes = {};
 
         for (const schema of schemas) {
+            const tables = await apiClient.request<TableMetadata[]>(`/dt/${schema}/tables`);
             schemaTypes[schema] = {};
-            const tables = await apiClient.request<string[]>(`/dt/${schema}/tables`);
 
             for (const table of tables) {
-                schemaTypes[schema][table] = {};
-                const columns = await apiClient.request<ColumnMetadata[]>(`/dt/${schema}/${table}/columns`);
-
-                for (const column of columns) {
-                    schemaTypes[schema][table][column.name] = mapPgTypeToTs(column.type);
+                schemaTypes[schema][table.name] = {};
+                for (const column of table.columns) {
+                    schemaTypes[schema][table.name][column.name] = mapPgTypeToTs(column.type);
                 }
             }
         }
@@ -72,6 +75,34 @@ export async function generateSchemaTypes(): Promise<SchemaTypes> {
         return schemaTypes;
     } catch (error) {
         console.error('Error generating schema types:', error);
+        throw error;
+    }
+}
+
+/**
+ * Fetches and returns the complete database schema information
+ * @returns Promise resolving to SchemaTypes object with raw database types
+ */
+export async function getMetadata(): Promise<SchemaTypes> {
+    try {
+        const schemas = await apiClient.request<string[]>('/dt/schemas');
+        const schemaInfo: SchemaTypes = {};
+
+        for (const schema of schemas) {
+            const tables = await apiClient.request<TableMetadata[]>(`/dt/${schema}/tables`);
+            schemaInfo[schema] = {};
+
+            for (const table of tables) {
+                schemaInfo[schema][table.name] = {};
+                for (const column of table.columns) {
+                    schemaInfo[schema][table.name][column.name] = column.type;
+                }
+            }
+        }
+
+        return schemaInfo;
+    } catch (error) {
+        console.error('Error fetching schema information:', error);
         throw error;
     }
 }
@@ -111,44 +142,12 @@ export async function initializeSchemaTypes(): Promise<void> {
         const schemaTypes = await generateSchemaTypes();
         const typeDeclarations = generateTypeDeclarations(schemaTypes);
 
-        // Here you could write the type declarations to a file
-        // or use them to create a dynamic type system in your app
-
         console.log('Schema types generated successfully');
         console.log(typeDeclarations);
 
-        // Optionally, you could expose these types globally
+        // Optionally, you could expose these types globally or write to a file
         // window.__SCHEMA_TYPES__ = schemaTypes;
     } catch (error) {
         console.error('Failed to initialize schema types:', error);
-    }
-}
-
-/**
- * Fetches and returns the complete database schema information.
- * @returns A promise that resolves to an object containing all schema, table, and column information.
- */
-export async function getMetadata(): Promise<SchemaTypes> {
-    try {
-        const schemas = await apiClient.request<string[]>('/dt/schemas');
-        const schemaInfo: SchemaTypes = {};
-
-        for (const schema of schemas) {
-            schemaInfo[schema] = {};
-            const tables = await apiClient.request<string[]>(`/dt/${schema}/tables`);
-
-            for (const table of tables) {
-                const columns = await apiClient.request<ColumnMetadata[]>(`/dt/${schema}/${table}/columns`);
-                schemaInfo[schema][table] = {};
-                for (const column of columns) {
-                    schemaInfo[schema][table][column.name] = column.type;
-                }
-            }
-        }
-
-        return schemaInfo;
-    } catch (error) {
-        console.error('Error fetching schema information:', error);
-        throw error;
     }
 }

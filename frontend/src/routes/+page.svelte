@@ -1,7 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { fade, fly } from 'svelte/transition';
-    import { goto } from '$app/navigation';
 
     interface Feature {
         icon: string;

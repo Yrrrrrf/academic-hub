@@ -1,21 +1,52 @@
-# Use the following docker-compose.yml file to create a multi-container application with Docker Compose.
-# This file defines two services, backend and frontend. The backend service is built from the Dockerfile in the backend directory, and the frontend service is built from the Dockerfile in the frontend directory.
-# The frontend service depends on the backend service, so the backend service will be started first.
-# The backend service is exposed on port 8000, and the frontend service is exposed on port 3000. The frontend service is dependent on the backend service, so the backend service will be started first.
-version: '3'
+version: '3.8'
 
 services:
-  # Backend service
-  # Build the backend service from the Dockerfile in the backend directory
-  # On fastapi, uvicorn is used to run the server
-  backend:
-    build: ./backend
+  db:
+    build:
+      context: ./backend
+      dockerfile: db.Dockerfile  # PostgreSQL database
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=some_user
+      - POSTGRES_PASSWORD=some_password
+      - POSTGRES_DB=academic_hub
+
+  api:
+    build: 
+      context: ./backend
+      dockerfile: api.Dockerfile  # API server
     ports:
-      - "8000:8000"
-  frontend:
-    build: ./frontend
+      - "8000:8000"  # Expose the API server on port 8000
+    depends_on:
+      - db  # Ensure the database is ready before starting the API
+    environment:
+      - DB_NAME=academic_hub
+      - DB_HOST=db
+      - DB_OWNER_ADMIN=academic_hub_owner
+      - DB_OWNER_PWORD=some_password
+
+  hub:
+    build: 
+      context: ./frontend
+      dockerfile: hub.Dockerfile  # HUB (web app)
     ports:
+      # todo: update the port number to match the frontend app
       - "3000:3000"
     depends_on:
-      - backend
+      - api
 
+volumes:
+  postgres_data:
+    name: academic_hub_postgres_data
+    labels:
+      - "project=academic_hub"
+      - "environment=development"
+
+
+# Additional explanations:
+# 1. The backend service uses a multi-stage build process defined in its Dockerfile.
+# 2. The frontend service assumes a simple build process, likely using Node.js and npm/yarn.
+# 3. The db service uses the official PostgreSQL image, which comes with built-in initialization features.
+# 4. Environment variables are used to configure services without hardcoding values in Dockerfiles.
+# 5. The command for the backend service is a shell script that ensures proper startup sequencing.

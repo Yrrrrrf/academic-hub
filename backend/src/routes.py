@@ -29,3 +29,23 @@ globals()['crud_attr'] = crud_attr  # Update the global namespace with the main 
 
 # * Generate metadata routes
 metadata: APIRouter = routes.generate_metadata_routes(db_manager.metadata, db_manager.get_db)
+
+
+# * Generate test routes
+test: APIRouter = APIRouter(tags=["test"])
+
+@test.get("/test")
+def test_get(): return "GET request to /test route"
+
+@test.post("/test")
+def test_post(): return "POST request to /test route"
+
+@test.put("/test")
+def test_put(): return "PUT request to /test route"
+
+@test.delete("/test")
+def test_delete(): return "DELETE request to /test route"
+
+# ^ Expose the metadata and test routers globally (for use in the main FastAPI application)
+globals()['metadata'] = metadata  # Update the global namespace with the metadata router
+globals()['test'] = test  # Update the global namespace with the test router

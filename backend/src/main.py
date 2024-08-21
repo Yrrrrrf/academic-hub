@@ -1,4 +1,6 @@
-"""Main file for the FastAPI application"""
+"""
+Main file for the FastAPI application
+"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from crud_forge.generators.routes import generate_default_routes
@@ -15,6 +17,13 @@ app: FastAPI = FastAPI(
     license_info = { "name": Config.LICENSE.value, "url": Config.LICENSE_URL.value }
 )
 
+@app.on_event("startup")
+async def startup_event():
+    from logging import config
+    from .console_output import LOG_CONFIG
+
+    config.dictConfig(LOG_CONFIG)  # ^ Set the LOG_CONFIG as the logging config
+
 app.add_middleware(
     CORSMiddleware,  # Add the CORS middleware to the FastAPI application (to allow cross-origin requests)
     allow_origins=["*"],  # Allow all origins
@@ -25,14 +34,18 @@ app.add_middleware(
 
 
 # * Add the routes to the FastAPI application
-generate_default_routes(app)  # ^ Default routes (for testing the FastAPI application)
-app.include_router(metadata)  # ^ Metadata routes (for getting metadata about the database)
-app.include_router(crud_attr)
-
+generate_default_routes(app)  # ^ Default routes (for app health & version info)
+app_routes: list[APIRouter] = [
+    test,  # ^ Health routes (for checking the health of the FastAPI application)
+    metadata,  # ^ Metadata routes (for getting metadata about the database)
+    crud_attr, # ^ CRUD routes (for creating, reading, updating, and deleting records in the database)
+    # some_other_router
+]
+[app.include_router(route) for route in app_routes]  # Include the routes in the FastAPI application
 
 
 # * Startup event
-def on_startup(): print("\n\033[92m" + f"Startup completed successfully!\n\n")
+def on_startup(): print("\n\n\033[92m" + f"Startup completed successfully!\n\n")
 
 on_startup()  # Run the startup event
 
