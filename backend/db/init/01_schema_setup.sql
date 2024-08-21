@@ -19,7 +19,25 @@
 \set ON_ERROR_STOP on
 \set ECHO all
 
--- Function to create schemas
+-- ^ Enable necessary extensions in the database
+--    These extensions provide additional functionality for data management and analysis.
+DO $$
+DECLARE
+    ext TEXT;  -- Extension name
+    extensions TEXT[] := ARRAY[  -- List of extensions to enable
+        'uuid-ossp',  -- generate universally unique identifiers (UUIDs)
+        'pgcrypto',   -- cryptographic functions
+        'pg_trgm'     -- trigram matching for similarity search (for example, in full-text search)
+    ];
+BEGIN
+    FOREACH ext IN ARRAY extensions
+    LOOP
+        EXECUTE format('CREATE EXTENSION IF NOT EXISTS %I', ext);
+        RAISE NOTICE 'Extension % enabled', ext;
+    END LOOP;
+END $$;
+
+-- ^ Function to create schemas
 CREATE OR REPLACE FUNCTION create_schemas(schema_names TEXT[])
 RETURNS VOID AS $$
 DECLARE
@@ -33,7 +51,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Function to create role and grant privileges
+-- ^ Function to create role and grant privileges
 CREATE OR REPLACE FUNCTION create_and_grant_role(
     role_name TEXT,
     role_password TEXT,
@@ -43,15 +61,16 @@ CREATE OR REPLACE FUNCTION create_and_grant_role(
 DECLARE
     schema_name TEXT;
 BEGIN
-    -- Create role if it doesn't exist
+    -- Create role if it doesn't exist, otherwise update password
     IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = role_name) THEN
         EXECUTE format('CREATE ROLE %I WITH LOGIN PASSWORD %L', role_name, role_password);
         RAISE NOTICE 'Role % created successfully', role_name;
     ELSE
-        RAISE NOTICE 'Role % already exists', role_name;
+        EXECUTE format('ALTER ROLE %I WITH PASSWORD %L', role_name, role_password);
+        RAISE NOTICE 'Password updated for existing role %', role_name;
     END IF;
 
-    -- Grant full privileges on primary schemas
+    -- Grant full privileges on primary schemas (for data management)
     FOREACH schema_name IN ARRAY primary_schemas
     LOOP
         EXECUTE format('GRANT ALL PRIVILEGES ON SCHEMA %I TO %I', schema_name, role_name);
@@ -61,7 +80,7 @@ BEGIN
         EXECUTE format('ALTER DEFAULT PRIVILEGES IN SCHEMA %I GRANT ALL PRIVILEGES ON SEQUENCES TO %I', schema_name, role_name);
     END LOOP;
 
-    -- Grant read privileges on specified schemas
+    -- Grant read privileges on specified schemas (for cross-schema access)
     FOREACH schema_name IN ARRAY read_schemas
     LOOP
         EXECUTE format('GRANT USAGE ON SCHEMA %I TO %I', schema_name, role_name);
@@ -73,28 +92,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Create schemas
+
+-- * Create schemas
 SELECT create_schemas(ARRAY[
-    -- Core schemas
+    -- * Core schemas
     --     These are the main schemas that contain core data for the ORGANIZATION
-    'auth',                       -- For authentication and authorization
-    'infrastructure_management',  -- For infrastructure-related (buildings, equipment, etc.)
-    'hr_management',              -- For HR-related (employees, payroll, etc.)
+    :'SCHEMA_AUTH',                  -- For authentication and authorization
+    :'SCHEMA_INFRASTRUCTURE',        -- For infrastructure-related (buildings, equipment, etc.)
+    :'SCHEMA_HR',                    -- For HR-related (employees, payroll, etc.)
 
-    -- Functional schemas
+    -- * Functional schemas
     --     These schemas are related to specific functions within the organization
-    'academic_management',        -- For academic management (academic programs, syllabi, etc.)
-    'course_offering_management', -- For course offering-related (schedules, assignments, etc.)
-    'student_management',         -- For student-related (enrollment, grades, etc.)
-    'library_management'          -- For library-related (books, loans, etc.)
+    :'SCHEMA_ACADEMIC',              -- For academic management (academic programs, syllabi, etc.)
+    :'SCHEMA_COURSE_OFFERING',       -- For course offering-related (schedules, assignments, etc.)
+    :'SCHEMA_STUDENT',               -- For student-related (enrollment, grades, etc.)
+    :'SCHEMA_LIBRARY'                -- For library-related (books, loans, etc.)
 
-    -- Additional schemas (commented out for future use)
+    -- * Additional schemas (commented out for future use)
     --     These schemas are for additional functions or departments
-    -- 'finance_management',      -- For finance-related (budgets, expenses, etc.)
-    -- 'research_management'      -- For research-related (projects, publications, etc.)
+    -- :'SCHEMA_FINANCE',            -- For finance-related (budgets, expenses, etc.)
+    -- :'SCHEMA_RESEARCH'            -- For research-related (projects, publications, etc.)
 ]);
 
--- Create roles and grant privileges for each schema
+
+-- * Create roles and grant privileges for each schema
 
 -- Infrastructure Management Schema
 --     Purpose: Handles all aspects of physical and digital infrastructure.
@@ -102,9 +123,9 @@ SELECT create_schemas(ARRAY[
 --                facilitating efficient resource allocation and maintenance planning.
 SELECT create_and_grant_role(
     'infrastructure_admin',
-    'infra_password',
-    ARRAY['infrastructure_management'],
-    ARRAY['hr_management']  -- Read access to HR for asset assignment
+    :'PASSWORD_INFRASTRUCTURE',
+    ARRAY[:'SCHEMA_INFRASTRUCTURE'],
+    ARRAY[:'SCHEMA_HR']  -- Read access to HR for asset assignment
 );
 
 -- HR Management Schema
@@ -113,9 +134,9 @@ SELECT create_and_grant_role(
 --                Crucial for maintaining consistent employee records, payroll, and organizational structure.
 SELECT create_and_grant_role(
     'hr_admin',
-    'hr_password',
-    ARRAY['hr_management', 'auth'],
-    ARRAY['academic_management']  -- Read access for academic roles
+    :'PASSWORD_HR',
+    ARRAY[:'SCHEMA_HR', :'SCHEMA_AUTH'],
+    ARRAY[:'SCHEMA_ACADEMIC']  -- Read access for academic roles
 );
 
 -- Academic Management Schema
@@ -124,9 +145,9 @@ SELECT create_and_grant_role(
 --                strategic academic planning and accreditation processes.
 SELECT create_and_grant_role(
     'academic_admin',
-    'academic_password',
-    ARRAY['academic_management', 'course_offering_management'],
-    ARRAY['student_management', 'library_management']  -- Read access for student and library data
+    :'PASSWORD_ACADEMIC',
+    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING'],
+    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_LIBRARY']  -- Read access for student and library data
 );
 
 -- Course Offering Management Schema
@@ -135,9 +156,9 @@ SELECT create_and_grant_role(
 --                handling of course offering-specific data and processes.
 SELECT create_and_grant_role(
     'course_offering_admin',
-    'course_offering_password',
-    ARRAY['course_offering_management'],
-    ARRAY['academic_management', 'hr_management']  -- Read access for related data
+    :'PASSWORD_COURSE_OFFERING',
+    ARRAY[:'SCHEMA_COURSE_OFFERING'],
+    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_HR']  -- Read access for related data
 );
 
 -- Student Management Schema
@@ -146,9 +167,9 @@ SELECT create_and_grant_role(
 --                Separation allows for specialized handling of student data, including privacy and regulatory compliance.
 SELECT create_and_grant_role(
     'student_admin',
-    'student_password',
-    ARRAY['student_management', 'auth'],
-    ARRAY['academic_management', 'course_offering_management', 'library_management']  -- Read access for academic and library data
+    :'PASSWORD_STUDENT',
+    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_AUTH'],
+    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_LIBRARY']  -- Read access for academic and library data
 );
 
 -- Library Management Schema
@@ -157,11 +178,10 @@ SELECT create_and_grant_role(
 --                circulation, and integration with academic resources.
 SELECT create_and_grant_role(
     'library_admin',
-    'library_password',
-    ARRAY['library_management'],
-    ARRAY['student_management', 'infrastructure_management']  -- Read access for student, academic, and infrastructure data
+    :'PASSWORD_LIBRARY',
+    ARRAY[:'SCHEMA_LIBRARY'],
+    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_INFRASTRUCTURE']  -- Read access for student, academic, and infrastructure data
 );
-
 
 -- -- todo: Create the 'additional-schemas' roles and grant privileges
 -- -- -- Finance Management Schema
@@ -174,16 +194,16 @@ SELECT create_and_grant_role(
 
 -- -- todo: Check if the following code is necessary, I mean, the db_owner role already has all the privileges on the database, so why do we need to grant privileges to the super_admin role?
 -- -- Create a super_admin role with access to all schemas
--- CREATE ROLE super_admin WITH LOGIN PASSWORD 'super_secure_password';
+-- CREATE ROLE super_admin WITH LOGIN PASSWORD :'PASSWORD_SUPER_ADMIN';
 -- GRANT ALL PRIVILEGES ON ALL SCHEMAS TO super_admin;
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA
---     auth,
---     infrastructure_management,
---     hr_management,
---     course_management,
---     academic_management,
---     student_management,
---     library_management,
---     finance_management,
---     research_management
+--     :'SCHEMA_AUTH',
+--     :'SCHEMA_INFRASTRUCTURE',
+--     :'SCHEMA_HR',
+--     :'SCHEMA_COURSE_OFFERING',
+--     :'SCHEMA_ACADEMIC',
+--     :'SCHEMA_STUDENT',
+--     :'SCHEMA_LIBRARY'
+--     -- :'SCHEMA_FINANCE',
+--     -- :'SCHEMA_RESEARCH'
 -- TO super_admin;

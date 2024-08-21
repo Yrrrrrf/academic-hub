@@ -58,22 +58,6 @@ SELECT EXISTS(SELECT 1 FROM pg_database WHERE datname = 'academic_hub') AS db_ex
 -- Set database parameters
 ALTER DATABASE academic_hub SET search_path TO public;
 
--- Connect to the new database
+-- * Connect to the new database
+-- Change the database to academic_hub (if not already connected)
 \c academic_hub
-
--- Enable necessary extensions
-DO $$
-DECLARE
-    ext TEXT;  -- Extension name
-    extensions TEXT[] := ARRAY[  -- List of extensions to enable
-        'uuid-ossp',  -- generate universally unique identifiers (UUIDs)
-        'pgcrypto',   -- cryptographic functions
-        'pg_trgm'     -- trigram matching for similarity search (for example, in full-text search)
-    ];
-BEGIN
-    FOREACH ext IN ARRAY extensions
-    LOOP
-        EXECUTE format('CREATE EXTENSION IF NOT EXISTS %I', ext);
-        RAISE NOTICE 'Extension % enabled', ext;
-    END LOOP;
-END $$;
