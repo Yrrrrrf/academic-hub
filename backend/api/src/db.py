@@ -1,11 +1,15 @@
-from dotenv import load_dotenv
 from crud_forge.db import DatabaseManager
 import os
 
+# * Environment Variables
+DB = {
+    'NAME': os.environ.get('DB_NAME') or 'academic_hub',
+    'HOST': os.environ.get('DB_HOST') or 'localhost',  # localhost by default
+    'ADMIN': os.environ.get('DB_OWNER_ADMIN') or 'academic_hub_owner',
+    'PWORD': os.environ.get('DB_OWNER_PWORD') or 'some_secure_password',
+}
 
-load_dotenv()
-
-# * Database Configuration
-DB: dict[str, str | None] = {key: os.getenv(key) for key in ['DB_OWNER_ADMIN', 'DB_OWNER_PWORD', 'DB_HOST', 'DB_NAME']}
-db_url: str = f"postgresql://{DB['DB_OWNER_ADMIN']}:{DB['DB_OWNER_PWORD']}@{DB['DB_HOST']}/{DB['DB_NAME']}"
+# * Database Connection
+db_url: str = f"postgresql://{DB['ADMIN']}:{DB['PWORD']}@{DB['HOST']}/{DB['NAME']}"
+# db_url: str = f"postgresql://{DB['ADMIN']}@{DB['HOST']}/{DB['NAME']}"
 db_manager: DatabaseManager = DatabaseManager(db_url=db_url)

@@ -1,19 +1,10 @@
 # Server
 uvicorn==0.30.6
 
-# Security
-python-dotenv==1.0.1
-
 # API
 fastapi==0.112.1
-crud-forge==0.1.4
+crud-forge==0.1.5
 
 # For testing
 pytest==8.3.2
 requests==2.32.3
-
-# For development
-psycopg2==2.9.9
-# ...
-# ...
-# ...
