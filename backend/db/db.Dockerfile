@@ -11,12 +11,12 @@ ENV TZ=Etc/UTC
 
 # Set schema-specific variables
 ENV SCHEMA_AUTH="auth"
-ENV SCHEMA_INFRASTRUCTURE="infrastructure_management"
-ENV SCHEMA_HR="hr_management"
-ENV SCHEMA_ACADEMIC="academic_management"
-ENV SCHEMA_COURSE_OFFERING="course_offering_management"
-ENV SCHEMA_STUDENT="student_management"
-ENV SCHEMA_LIBRARY="library_management"
+ENV SCHEMA_INFRASTRUCTURE="infrastructure"
+ENV SCHEMA_HR="hr"
+ENV SCHEMA_ACADEMIC="academic"
+ENV SCHEMA_COURSE_OFFERING="course_offering"
+ENV SCHEMA_STUDENT="student"
+ENV SCHEMA_LIBRARY="library"
 
 # Set role-specific passwords (in production, use secrets management)
 ENV PASSWORD_INFRASTRUCTURE="infra_password"

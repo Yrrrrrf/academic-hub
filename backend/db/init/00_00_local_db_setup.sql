@@ -20,7 +20,7 @@
 DO $$
 DECLARE
     db_owner TEXT := 'academic_hub_owner';
-    db_owner_password TEXT := 'some_password'; -- TODO: Use more secure method in production
+    db_owner_password TEXT := 'some_secure_password'; -- TODO: Use more secure method in production
 BEGIN
     IF EXISTS (SELECT FROM pg_roles WHERE rolname = db_owner) THEN
         EXECUTE format('ALTER ROLE %I WITH PASSWORD %L CREATEROLE', db_owner, db_owner_password);
