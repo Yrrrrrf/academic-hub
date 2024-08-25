@@ -97,6 +97,7 @@ $$ LANGUAGE plpgsql;
 SELECT create_schemas(ARRAY[
     -- * Core schemas
     --     These are the main schemas that contain core data for the ORGANIZATION
+    :'SCHEMA_AGNOSTIC',              -- For shared data and cross-schema access
     :'SCHEMA_AUTH',                  -- For authentication and authorization
     :'SCHEMA_INFRASTRUCTURE',        -- For infrastructure-related (buildings, equipment, etc.)
     :'SCHEMA_HR',                    -- For HR-related (employees, payroll, etc.)
@@ -146,7 +147,7 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'academic_admin',
     :'PASSWORD_ACADEMIC',
-    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING'],
+    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_AGNOSTIC'],
     ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_LIBRARY']  -- Read access for student and library data
 );
 
@@ -169,7 +170,7 @@ SELECT create_and_grant_role(
     'student_admin',
     :'PASSWORD_STUDENT',
     ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_AUTH'],
-    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_LIBRARY']  -- Read access for academic and library data
+    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_LIBRARY', :'SCHEMA_AGNOSTIC']  -- Read access for academic and library data
 );
 
 -- Library Management Schema
@@ -179,7 +180,7 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'library_admin',
     :'PASSWORD_LIBRARY',
-    ARRAY[:'SCHEMA_LIBRARY'],
+    ARRAY[:'SCHEMA_LIBRARY', :'SCHEMA_AGNOSTIC'],  -- Library and shared data access
     ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_INFRASTRUCTURE']  -- Read access for student, academic, and infrastructure data
 );
 

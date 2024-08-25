@@ -67,7 +67,6 @@ CREATE TABLE student.student (
     is_active BOOLEAN DEFAULT true
 );
 
-COMMENT ON TABLE student.student IS 'Stores essential academic information about students';
 COMMENT ON COLUMN student.student.id IS 'Unique identifier for the student';
 COMMENT ON COLUMN student.student.first_name IS 'Student''s first name';
 COMMENT ON COLUMN student.student.last_name IS 'Student''s last name';
@@ -90,7 +89,6 @@ CREATE TABLE student.enrollment (
     CONSTRAINT unique_student_course_offering UNIQUE (student_id, course_offering_id)
 );
 
-COMMENT ON TABLE student.enrollment IS 'Tracks student enrollments in course offerings';
 COMMENT ON COLUMN student.enrollment.id IS 'Unique identifier for each enrollment record';
 COMMENT ON COLUMN student.enrollment.student_id IS 'Reference to the student enrolled in the course';
 COMMENT ON COLUMN student.enrollment.course_offering_id IS 'Reference to the specific course offering';
@@ -107,19 +105,15 @@ CREATE TABLE student.grade (
     exam_type student.exam_type NOT NULL,
     grade NUMERIC(4,2) NOT NULL CHECK (grade >= 0 AND grade <= 100),
     grading_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    graded_by UUID REFERENCES hr.employee(id),
     comments TEXT,
     CONSTRAINT unique_enrollment_exam_type UNIQUE (enrollment_id, exam_type)
 );
 
-COMMENT ON TABLE student.grade IS 'Records grades for student enrollments';
 COMMENT ON COLUMN student.grade.id IS 'Unique identifier for each grade entry';
 COMMENT ON COLUMN student.grade.enrollment_id IS 'Reference to the specific enrollment';
 COMMENT ON COLUMN student.grade.exam_type IS 'Type of assessment for this grade';
 COMMENT ON COLUMN student.grade.grade IS 'Numeric grade value (0-100)';
 COMMENT ON COLUMN student.grade.grading_date IS 'Date when the grade was recorded';
-COMMENT ON COLUMN student.grade.graded_by IS 'Reference to the employee who recorded the grade';
 COMMENT ON COLUMN student.grade.comments IS 'Optional comments on the grade';
 
 CREATE INDEX idx_grade_enrollment ON student.grade(enrollment_id);
-CREATE INDEX idx_grade_graded_by ON student.grade(graded_by);

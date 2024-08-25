@@ -40,8 +40,6 @@ CREATE TABLE infrastructure.building (
     accessibility_features BOOLEAN DEFAULT false
 );
 
--- Add comments and constraints
-COMMENT ON TABLE infrastructure.building IS 'Represents physical buildings on campus';
 COMMENT ON COLUMN infrastructure.building.id IS 'Unique identifier for the building';
 COMMENT ON COLUMN infrastructure.building.name IS 'Official name of the building';
 COMMENT ON COLUMN infrastructure.building.address IS 'Full postal address of the building';
@@ -63,8 +61,6 @@ CREATE TABLE infrastructure.room (
     capacity INT
 );
 
--- Add comments and constraints
-COMMENT ON TABLE infrastructure.room IS 'Represents individual rooms within buildings';
 COMMENT ON COLUMN infrastructure.room.id IS 'Unique identifier for the room';
 COMMENT ON COLUMN infrastructure.room.room_type IS 'Type of room (e.g., classroom, laboratory)';
 COMMENT ON COLUMN infrastructure.room.name IS 'Room number or name';
@@ -84,7 +80,6 @@ CREATE TABLE infrastructure.faculty (
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
-COMMENT ON TABLE infrastructure.faculty IS 'Represents academic faculties or departments';
 COMMENT ON COLUMN infrastructure.faculty.id IS 'Unique identifier for the faculty';
 COMMENT ON COLUMN infrastructure.faculty.name IS 'Official name of the faculty or department';
 
@@ -96,7 +91,6 @@ CREATE TABLE infrastructure.faculty_building (
     PRIMARY KEY (faculty_id, building_id)
 );
 
-COMMENT ON TABLE infrastructure.faculty_building IS 'Maps relationships between faculties and buildings';
 COMMENT ON COLUMN infrastructure.faculty_building.faculty_id IS 'Reference to the faculty';
 COMMENT ON COLUMN infrastructure.faculty_building.building_id IS 'Reference to the building';
 
@@ -112,7 +106,6 @@ CREATE TABLE infrastructure.facility (
     CONSTRAINT unique_facility_per_building UNIQUE (facility_type, building_id)
 );
 
-COMMENT ON TABLE infrastructure.facility IS 'Represents facilities within buildings';
 COMMENT ON COLUMN infrastructure.facility.id IS 'Unique identifier for the facility';
 COMMENT ON COLUMN infrastructure.facility.facility_type IS 'Type of facility';
 COMMENT ON COLUMN infrastructure.facility.building_id IS 'Reference to the building containing this facility';

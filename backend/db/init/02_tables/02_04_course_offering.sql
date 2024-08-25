@@ -18,7 +18,6 @@ CREATE TABLE course_offering.academic_term (
     CONSTRAINT valid_term_dates CHECK (start_date < end_date)
 );
 
-COMMENT ON TABLE course_offering.academic_term IS 'Defines academic terms (e.g., semesters, quarters)';
 COMMENT ON COLUMN course_offering.academic_term.id IS 'Unique identifier for the academic term';
 COMMENT ON COLUMN course_offering.academic_term.name IS 'Name of the academic term (e.g., Fall 2023)';
 COMMENT ON COLUMN course_offering.academic_term.start_date IS 'Start date of the term';
@@ -40,7 +39,6 @@ CREATE TABLE course_offering.course_offering (
     CONSTRAINT valid_enrollment CHECK (current_enrollment <= max_enrollment)
 );
 
-COMMENT ON TABLE course_offering.course_offering IS 'Represents specific instances of courses offered in a given term';
 COMMENT ON COLUMN course_offering.course_offering.id IS 'Unique identifier for the course offering';
 COMMENT ON COLUMN course_offering.course_offering.course_id IS 'Reference to the course being offered';
 COMMENT ON COLUMN course_offering.course_offering.term_id IS 'Academic term in which the course is offered';
@@ -63,7 +61,6 @@ CREATE TABLE course_offering.course_schedule (
     CONSTRAINT valid_schedule_time CHECK (start_time < end_time)
 );
 
-COMMENT ON TABLE course_offering.course_schedule IS 'Contains detailed scheduling information for course offerings';
 COMMENT ON COLUMN course_offering.course_schedule.id IS 'Unique identifier for the schedule entry';
 COMMENT ON COLUMN course_offering.course_schedule.course_offering_id IS 'Reference to the course offering';
 COMMENT ON COLUMN course_offering.course_schedule.day_of_week IS 'Day of the week (0 = Sunday, 6 = Saturday)';
@@ -83,7 +80,6 @@ CREATE TABLE course_offering.instructor_assignment (
     CONSTRAINT unique_instructor_assignment UNIQUE (course_offering_id, instructor_id)
 );
 
-COMMENT ON TABLE course_offering.instructor_assignment IS 'Maps instructors to course offerings';
 COMMENT ON COLUMN course_offering.instructor_assignment.id IS 'Unique identifier for the instructor assignment';
 COMMENT ON COLUMN course_offering.instructor_assignment.course_offering_id IS 'Reference to the course offering';
 COMMENT ON COLUMN course_offering.instructor_assignment.instructor_id IS 'Reference to the assigned instructor';

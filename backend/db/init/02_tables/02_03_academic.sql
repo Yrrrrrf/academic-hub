@@ -18,7 +18,6 @@ CREATE TABLE academic.program (
     is_active BOOLEAN DEFAULT true
 );
 
-COMMENT ON TABLE academic.program IS 'Defines academic programs offered by the institution';
 COMMENT ON COLUMN academic.program.id IS 'Unique identifier for the program';
 COMMENT ON COLUMN academic.program.code IS 'Program code (e.g., MEng, CS)';
 COMMENT ON COLUMN academic.program.name IS 'Full name of the program';
@@ -39,7 +38,6 @@ CREATE TABLE academic.course (
     is_active BOOLEAN DEFAULT true
 );
 
-COMMENT ON TABLE academic.course IS 'Defines individual courses offered by the institution';
 COMMENT ON COLUMN academic.course.id IS 'Unique identifier for the course';
 COMMENT ON COLUMN academic.course.code IS 'Course code (e.g., CS101)';
 COMMENT ON COLUMN academic.course.title IS 'Title of the course';
@@ -50,6 +48,23 @@ COMMENT ON COLUMN academic.course.is_active IS 'Indicates if the course is curre
 CREATE INDEX idx_course_code ON academic.course(code);
 CREATE INDEX idx_course_credits ON academic.course(credits);
 
+-- Course Topic: Maps courses to topics from the agnostic schema
+CREATE TABLE academic.course_topic (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    course_id UUID NOT NULL REFERENCES academic.course(id),
+    topic_id UUID NOT NULL REFERENCES agnostic.topic(id),
+    relevance_level INT CHECK (relevance_level BETWEEN 1 AND 5),
+    CONSTRAINT unique_course_topic UNIQUE (course_id, topic_id)
+);
+
+COMMENT ON COLUMN academic.course_topic.id IS 'Unique identifier for the course-topic relationship';
+COMMENT ON COLUMN academic.course_topic.course_id IS 'Reference to the course';
+COMMENT ON COLUMN academic.course_topic.topic_id IS 'Reference to the topic from the agnostic schema';
+COMMENT ON COLUMN academic.course_topic.relevance_level IS 'Indicates the relevance of the topic to the course (1-5)';
+
+CREATE INDEX idx_course_topic_course ON academic.course_topic(course_id);
+CREATE INDEX idx_course_topic_topic ON academic.course_topic(topic_id);
+
 -- Course Prerequisite: Defines prerequisites for courses
 CREATE TABLE academic.course_prerequisite (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -58,7 +73,6 @@ CREATE TABLE academic.course_prerequisite (
     CONSTRAINT unique_prerequisite UNIQUE (course_id, prerequisite_course_id)
 );
 
-COMMENT ON TABLE academic.course_prerequisite IS 'Defines prerequisites for courses';
 COMMENT ON COLUMN academic.course_prerequisite.id IS 'Unique identifier for the prerequisite relationship';
 COMMENT ON COLUMN academic.course_prerequisite.course_id IS 'Reference to the course that has the prerequisite';
 COMMENT ON COLUMN academic.course_prerequisite.prerequisite_course_id IS 'Reference to the course that is a prerequisite';
@@ -76,7 +90,6 @@ CREATE TABLE academic.syllabus (
     CONSTRAINT unique_syllabus_version UNIQUE (course_id, version)
 );
 
-COMMENT ON TABLE academic.syllabus IS 'Contains syllabus information for courses';
 COMMENT ON COLUMN academic.syllabus.id IS 'Unique identifier for the syllabus';
 COMMENT ON COLUMN academic.syllabus.course_id IS 'Reference to the course this syllabus is for';
 COMMENT ON COLUMN academic.syllabus.version IS 'Version of the syllabus';
@@ -96,7 +109,6 @@ CREATE TABLE academic.program_course (
     CONSTRAINT unique_program_course UNIQUE (program_id, course_id)
 );
 
-COMMENT ON TABLE academic.program_course IS 'Maps courses to programs';
 COMMENT ON COLUMN academic.program_course.id IS 'Unique identifier for the program-course relationship';
 COMMENT ON COLUMN academic.program_course.program_id IS 'Reference to the academic program';
 COMMENT ON COLUMN academic.program_course.course_id IS 'Reference to the course';

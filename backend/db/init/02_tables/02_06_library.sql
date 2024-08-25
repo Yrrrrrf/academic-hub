@@ -7,7 +7,6 @@ CREATE TABLE library.author (
     name VARCHAR(255) NOT NULL
 );
 
-COMMENT ON TABLE library.author IS 'Stores information about book authors';
 COMMENT ON COLUMN library.author.id IS 'Unique identifier for the author';
 COMMENT ON COLUMN library.author.name IS 'Full name of the author';
 
@@ -17,7 +16,6 @@ CREATE TABLE library.publisher (
     name VARCHAR(255) NOT NULL
 );
 
-COMMENT ON TABLE library.publisher IS 'Contains details about book publishers';
 COMMENT ON COLUMN library.publisher.id IS 'Unique identifier for the publisher';
 COMMENT ON COLUMN library.publisher.name IS 'Name of the publishing company';
 
@@ -32,7 +30,6 @@ CREATE TABLE library.book (
     publication_year INT
 );
 
-COMMENT ON TABLE library.book IS 'Stores essential information about books';
 COMMENT ON COLUMN library.book.id IS 'Unique identifier for the book';
 COMMENT ON COLUMN library.book.title IS 'Title of the book';
 COMMENT ON COLUMN library.book.publisher_id IS 'Reference to the book''s publisher';
@@ -50,7 +47,6 @@ CREATE TABLE library.book_author (
     PRIMARY KEY (book_id, author_id)
 );
 
-COMMENT ON TABLE library.book_author IS 'Maps the relationship between books and authors';
 COMMENT ON COLUMN library.book_author.book_id IS 'Reference to the book';
 COMMENT ON COLUMN library.book_author.author_id IS 'Reference to the author';
 
@@ -63,22 +59,23 @@ CREATE TABLE library.topic (
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
-COMMENT ON TABLE library.topic IS 'Defines topics or genres for books';
 COMMENT ON COLUMN library.topic.id IS 'Unique identifier for the topic';
 COMMENT ON COLUMN library.topic.name IS 'Name of the topic or genre';
 
 CREATE INDEX idx_topic_name ON library.topic(name);
 
 -- Book_Topic: Maps books to their corresponding topics
+-- Update the book_topic table in the library schema
+DROP TABLE IF EXISTS library.book_topic;
+
 CREATE TABLE library.book_topic (
     book_id UUID REFERENCES library.book(id),
-    topic_id UUID REFERENCES library.topic(id),
+    topic_id UUID REFERENCES agnostic.topic(id),
     PRIMARY KEY (book_id, topic_id)
 );
 
-COMMENT ON TABLE library.book_topic IS 'Maps books to their corresponding topics';
 COMMENT ON COLUMN library.book_topic.book_id IS 'Reference to the book';
-COMMENT ON COLUMN library.book_topic.topic_id IS 'Reference to the topic';
+COMMENT ON COLUMN library.book_topic.topic_id IS 'Reference to the topic from the agnostic schema';
 
 CREATE INDEX idx_book_topic_book ON library.book_topic(book_id);
 CREATE INDEX idx_book_topic_topic ON library.book_topic(topic_id);
@@ -93,7 +90,6 @@ CREATE TABLE library.book_copy (
         REFERENCES infrastructure.facility(id)
 );
 
-COMMENT ON TABLE library.book_copy IS 'Represents physical copies of books in library facilities';
 COMMENT ON COLUMN library.book_copy.id IS 'Unique identifier for the book copy';
 COMMENT ON COLUMN library.book_copy.book_id IS 'Reference to the book';
 COMMENT ON COLUMN library.book_copy.library_facility_id IS 'Reference to the library facility where the copy is located';
@@ -133,7 +129,6 @@ CREATE TABLE library.loan (
     return_date DATE
 );
 
-COMMENT ON TABLE library.loan IS 'Tracks book loans to students';
 COMMENT ON COLUMN library.loan.id IS 'Unique identifier for the loan';
 COMMENT ON COLUMN library.loan.student_id IS 'Reference to the student who borrowed the book';
 COMMENT ON COLUMN library.loan.book_copy_id IS 'Reference to the specific book copy that was loaned';

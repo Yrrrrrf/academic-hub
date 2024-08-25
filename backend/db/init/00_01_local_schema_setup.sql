@@ -86,6 +86,7 @@ $$ LANGUAGE plpgsql;
 -- Create schemas
 SELECT create_schemas(ARRAY[
     'auth',
+    'agnostic',
     'infrastructure',
     'hr',
     'academic',
@@ -116,7 +117,7 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'academic_admin',
     'ac_password',
-    ARRAY['academic', 'course_offering'],
+    ARRAY['academic', 'course_offering', 'agnostic'],
     ARRAY['student', 'library']
 );
 
@@ -133,13 +134,13 @@ SELECT create_and_grant_role(
     'student_admin',
     'st_password',
     ARRAY['student', 'auth'],
-    ARRAY['academic', 'course_offering', 'library']
+    ARRAY['academic', 'course_offering', 'library', 'agnostic']
 );
 
 -- Library Management Schema
 SELECT create_and_grant_role(
     'library_admin',
     'li_password',
-    ARRAY['library'],
+    ARRAY['library', 'agnostic'],
     ARRAY['student', 'infrastructure']
 );
