@@ -53,17 +53,6 @@ COMMENT ON COLUMN library.book_author.author_id IS 'Reference to the author';
 CREATE INDEX idx_book_author_book ON library.book_author(book_id);
 CREATE INDEX idx_book_author_author ON library.book_author(author_id);
 
--- Topic: Defines topics or genres for books
-CREATE TABLE library.topic (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL UNIQUE
-);
-
-COMMENT ON COLUMN library.topic.id IS 'Unique identifier for the topic';
-COMMENT ON COLUMN library.topic.name IS 'Name of the topic or genre';
-
-CREATE INDEX idx_topic_name ON library.topic(name);
-
 -- Book_Topic: Maps books to their corresponding topics
 -- Update the book_topic table in the library schema
 DROP TABLE IF EXISTS library.book_topic;

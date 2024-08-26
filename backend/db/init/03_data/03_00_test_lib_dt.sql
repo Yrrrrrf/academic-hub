@@ -17,8 +17,9 @@ VALUES
 ('f1b0a112-9e88-4d1e-87a7-a5a6e6e73c3f', 'c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f');
 
 -- Set up Engineering Library in Building B
-INSERT INTO infrastructure.library (id, name, faculty_id, building_id)
-VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'Engineering Library', 'f1b0a112-9e88-4d1e-87a7-a5a6e6e73c3f', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e');
+INSERT INTO infrastructure.facility (id, facility_type, building_id)
+VALUES ('f47ac10b-58cc-4372-a567-0e02b2c3d479', 'library', 'b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e');
+
 
 -- Create Engineering Programs
 INSERT INTO academic.program (id, code, name, description, degree_level)
@@ -73,17 +74,14 @@ VALUES
 ('c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e9f', 'e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b');
 
 -- Create book copies in the Engineering Library
-INSERT INTO library.book_copy (id, book_id, library_id, status)
+INSERT INTO library.book_copy (id, book_id, library_facility_id, status)
 VALUES 
 ('d6e7f8a9-b0c1-4d2e-3f4a-5b6c7d8e9f0a', 'e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
 ('e7f8a9b0-c1d2-4e3f-4a5b-6c7d8e9f0a1b', 'f2a3b4c5-d6e7-4f8a-9b0c-1d2e3f4a5b6c', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
 ('f8a9b0c1-d2e3-4f4a-5b6c-7d8e9f0a1b2c', 'a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
 ('a9b0c1d2-e3f4-4a5b-6c7d-8e9f0a1b2c3d', 'b4c5d6e7-f8a9-4b0c-1d2e-3f4a5b6c7d8e', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
-('b0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e', 'c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e9f', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available');
-
--- Create additional copies for some books
-INSERT INTO library.book_copy (id, book_id, library_id, status)
-VALUES 
+('b0c1d2e3-f4a5-4b6c-7d8e-9f0a1b2c3d4e', 'c5d6e7f8-a9b0-4c1d-2e3f-4a5b6c7d8e9f', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
 ('c1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f', 'e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
 ('d2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a', 'f2a3b4c5-d6e7-4f8a-9b0c-1d2e3f4a5b6c', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available'),
-('e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b', 'a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available');
+('e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b', 'a3b4c5d6-e7f8-4a9b-0c1d-2e3f4a5b6c7d', 'f47ac10b-58cc-4372-a567-0e02b2c3d479', 'available')
+;

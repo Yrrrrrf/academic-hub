@@ -9,6 +9,7 @@ execute_sql_file() {
     echo "Executing $file..."
     psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
 $(sed \
+  -e "s|:'SCHEMA_AGNOSTIC'|'$SCHEMA_AGNOSTIC'|g" \
   -e "s|:'SCHEMA_AUTH'|'$SCHEMA_AUTH'|g" \
   -e "s|:'SCHEMA_INFRASTRUCTURE'|'$SCHEMA_INFRASTRUCTURE'|g" \
   -e "s|:'SCHEMA_HR'|'$SCHEMA_HR'|g" \
