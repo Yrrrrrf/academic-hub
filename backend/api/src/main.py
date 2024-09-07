@@ -3,7 +3,7 @@ Main file for the FastAPI application
 """
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from crud_forge.generators.routes import generate_default_routes
+from crud_forge.generators.routes import gen_default_routes
 
 from .config import Config
 from .routes import *
@@ -34,9 +34,10 @@ app.add_middleware(
 
 
 # * Add the routes to the FastAPI application
-generate_default_routes(app)  # ^ Default routes (for app health & version info)
+gen_default_routes(app)  # ^ Default routes (for app health & version info)
 app_routes: list[APIRouter] = [
     test,  # ^ Health routes (for checking the health of the FastAPI application)
+    enums_router,  # ^ Enum routes (for getting the enums in the database)
     metadata,  # ^ Metadata routes (for getting metadata about the database)
     crud_attr, # ^ CRUD routes (for creating, reading, updating, and deleting records in the database)
     # some_other_router

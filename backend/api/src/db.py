@@ -11,5 +11,4 @@ DB = {
 
 # * Database Connection
 db_url: str = f"postgresql://{DB['ADMIN']}:{DB['PWORD']}@{DB['HOST']}/{DB['NAME']}"
-# db_url: str = f"postgresql://{DB['ADMIN']}@{DB['HOST']}/{DB['NAME']}"
 db_manager: DatabaseManager = DatabaseManager(db_url=db_url)

@@ -92,22 +92,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+-- todo: Break it into many instances to expose the db partially
+
 
 -- * Create schemas
 SELECT create_schemas(ARRAY[
     -- * Core schemas
     --     These are the main schemas that contain core data for the ORGANIZATION
-    :'SCHEMA_AGNOSTIC',              -- For shared data and cross-schema access
+    'agnostic',              -- For shared data and cross-schema access
     :'SCHEMA_AUTH',                  -- For authentication and authorization
-    :'SCHEMA_INFRASTRUCTURE',        -- For infrastructure-related (buildings, equipment, etc.)
+    'infrastructure',        -- For infrastructure-related (buildings, equipment, etc.)
     :'SCHEMA_HR',                    -- For HR-related (employees, payroll, etc.)
 
     -- * Functional schemas
     --     These schemas are related to specific functions within the organization
-    :'SCHEMA_ACADEMIC',              -- For academic management (academic programs, syllabi, etc.)
-    :'SCHEMA_COURSE_OFFERING',       -- For course offering-related (schedules, assignments, etc.)
-    :'SCHEMA_STUDENT',               -- For student-related (enrollment, grades, etc.)
-    :'SCHEMA_LIBRARY'                -- For library-related (books, loans, etc.)
+    'academic',              -- For academic management (academic programs, syllabi, etc.)
+    'course_offering',       -- For course offering-related (schedules, assignments, etc.)
+    'student',               -- For student-related (enrollment, grades, etc.)
+    'library'                -- For library-related (books, loans, etc.)
 
     -- * Additional schemas (commented out for future use)
     --     These schemas are for additional functions or departments
@@ -125,7 +127,7 @@ SELECT create_schemas(ARRAY[
 SELECT create_and_grant_role(
     'infrastructure_admin',
     :'PASSWORD_INFRASTRUCTURE',
-    ARRAY[:'SCHEMA_INFRASTRUCTURE'],
+    ARRAY['infrastructure'],
     ARRAY[:'SCHEMA_HR']  -- Read access to HR for asset assignment
 );
 
@@ -137,7 +139,7 @@ SELECT create_and_grant_role(
     'hr_admin',
     :'PASSWORD_HR',
     ARRAY[:'SCHEMA_HR', :'SCHEMA_AUTH'],
-    ARRAY[:'SCHEMA_ACADEMIC']  -- Read access for academic roles
+    ARRAY['academic']  -- Read access for academic roles
 );
 
 -- Academic Management Schema
@@ -147,8 +149,8 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'academic_admin',
     :'PASSWORD_ACADEMIC',
-    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_AGNOSTIC'],
-    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_LIBRARY']  -- Read access for student and library data
+    ARRAY['academic', 'course_offering', 'agnostic'],
+    ARRAY['student', 'library']  -- Read access for student and library data
 );
 
 -- Course Offering Management Schema
@@ -158,8 +160,8 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'course_offering_admin',
     :'PASSWORD_COURSE_OFFERING',
-    ARRAY[:'SCHEMA_COURSE_OFFERING'],
-    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_HR']  -- Read access for related data
+    ARRAY['course_offering'],
+    ARRAY['academic', :'SCHEMA_HR']  -- Read access for related data
 );
 
 -- Student Management Schema
@@ -169,8 +171,8 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'student_admin',
     :'PASSWORD_STUDENT',
-    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_AUTH'],
-    ARRAY[:'SCHEMA_ACADEMIC', :'SCHEMA_COURSE_OFFERING', :'SCHEMA_LIBRARY', :'SCHEMA_AGNOSTIC']  -- Read access for academic and library data
+    ARRAY['student', :'SCHEMA_AUTH'],
+    ARRAY['academic', 'course_offering', 'library', 'agnostic']  -- Read access for academic and library data
 );
 
 -- Library Management Schema
@@ -180,8 +182,8 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'library_admin',
     :'PASSWORD_LIBRARY',
-    ARRAY[:'SCHEMA_LIBRARY', :'SCHEMA_AGNOSTIC'],  -- Library and shared data access
-    ARRAY[:'SCHEMA_STUDENT', :'SCHEMA_INFRASTRUCTURE']  -- Read access for student, academic, and infrastructure data
+    ARRAY['library', 'agnostic'],  -- Library and shared data access
+    ARRAY['student', 'infrastructure']  -- Read access for student, academic, and infrastructure data
 );
 
 -- -- todo: Create the 'additional-schemas' roles and grant privileges
@@ -199,12 +201,12 @@ SELECT create_and_grant_role(
 -- GRANT ALL PRIVILEGES ON ALL SCHEMAS TO super_admin;
 -- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA
 --     :'SCHEMA_AUTH',
---     :'SCHEMA_INFRASTRUCTURE',
+--     'infrastructure',
 --     :'SCHEMA_HR',
---     :'SCHEMA_COURSE_OFFERING',
---     :'SCHEMA_ACADEMIC',
---     :'SCHEMA_STUDENT',
---     :'SCHEMA_LIBRARY'
+--     'course_offering',
+--     'academic',
+--     'student',
+--     'library'
 --     -- :'SCHEMA_FINANCE',
 --     -- :'SCHEMA_RESEARCH'
 -- TO super_admin;
