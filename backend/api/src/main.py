@@ -45,8 +45,19 @@ app_routes: list[APIRouter] = [
 [app.include_router(route) for route in app_routes]  # Include the routes in the FastAPI application
 
 
-# * Startup event
-def on_startup(): print("\n\n\033[92m" + f"Startup completed successfully!\n\n")
+
+
+def some_test_fn():
+    from sqlalchemy import inspect
+
+    inspector = inspect(all_models['academic']['course'][0])
+    for column in inspector.columns:
+        print(f"{column.name}: {column.type}")
+
+
+def on_startup():
+    print("\n\n\033[92m" + f"Startup completed successfully!\n\n")
+    # some_test_fn()
 
 on_startup()  # Run the startup event
 
