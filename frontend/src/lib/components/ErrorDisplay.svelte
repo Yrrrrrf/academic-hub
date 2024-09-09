@@ -1,5 +1,3 @@
-
-<!-- $lib/components/ErrorDisplay.svelte -->
 <script lang="ts">
     export let error: string;
 </script>

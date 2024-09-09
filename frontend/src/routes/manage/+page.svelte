@@ -3,10 +3,10 @@
     import { getMetadata } from '$lib/api/schema-generator';
     import type { SchemaTypes } from '$lib/api/schema-generator';
     import { initializeApi } from '$lib/api';
-    import SchemaAccordion from '$lib/components/SchemaAccordion.svelte';
-    import ErrorDisplay from '$lib/components/ErrorDisplay.svelte';
-    import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
     import { schemaStore } from '$lib/stores/schemaStore';
+    import SchemaAccordion from '$lib/components/SchemaAccordion.svelte';
+    import LoadingIndicator from '$lib/components/LoadingIndicator.svelte';
+    import ErrorDisplay from '$lib/components/ErrorDisplay.svelte';
 
     let loading = true;
     let error: string | null = null;

@@ -17,7 +17,6 @@ class Config(Enum):
     LICENSE_URL = "https://choosealicense.com/licenses/mit/"
 
 
-
 # * Create fn that set the data for the FastAPI application
 def set_app_data(app: FastAPI):
     app.title = Config.NAME.value,
