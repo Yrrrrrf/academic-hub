@@ -19,10 +19,10 @@ class Config(Enum):
 
 # * Create fn that set the data for the FastAPI application
 def set_app_data(app: FastAPI):
-    app.title = Config.NAME.value,
-    app.description = Config.DESCRIPTION.value,
-    app.version = Config.VERSION.value,
-    app.contact = { "name": Config.AUTHOR.value, "email": Config.EMAIL.value },
+    app.title = Config.NAME.value
+    app.description = Config.DESCRIPTION.value
+    app.version = Config.VERSION.value
+    app.contact = { "name": Config.AUTHOR.value, "email": Config.EMAIL.value }
     app.license_info = { "name": Config.LICENSE.value, "url": Config.LICENSE_URL.value }
 
 

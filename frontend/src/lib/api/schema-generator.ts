@@ -57,17 +57,15 @@ function mapPgTypeToTs(pgType: string): string {
  */
 export async function generateSchemaTypes(): Promise<SchemaTypes> {
     try {
-        const schemas = await apiClient.request<string[]>('/dt/schemas');
+        const schemas = await apiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
         const schemaTypes: SchemaTypes = {};
 
         for (const schema of schemas) {
-            const tables = await apiClient.request<TableMetadata[]>(`/dt/${schema}/tables`);
-            schemaTypes[schema] = {};
-
-            for (const table of tables) {
-                schemaTypes[schema][table.name] = {};
-                for (const column of table.columns) {
-                    schemaTypes[schema][table.name][column.name] = mapPgTypeToTs(column.type);
+            schemaTypes[schema.name] = {};
+            for (const [tableName, tableMetadata] of Object.entries(schema.tables)) {
+                schemaTypes[schema.name][tableName] = {};
+                for (const column of tableMetadata.columns) {
+                    schemaTypes[schema.name][tableName][column.name] = mapPgTypeToTs(column.type);
                 }
             }
         }
@@ -85,17 +83,15 @@ export async function generateSchemaTypes(): Promise<SchemaTypes> {
  */
 export async function getMetadata(): Promise<SchemaTypes> {
     try {
-        const schemas = await apiClient.request<string[]>('/dt/schemas');
+        const schemas = await apiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
         const schemaInfo: SchemaTypes = {};
 
         for (const schema of schemas) {
-            const tables = await apiClient.request<TableMetadata[]>(`/dt/${schema}/tables`);
-            schemaInfo[schema] = {};
-
-            for (const table of tables) {
-                schemaInfo[schema][table.name] = {};
-                for (const column of table.columns) {
-                    schemaInfo[schema][table.name][column.name] = column.type;
+            schemaInfo[schema.name] = {};
+            for (const [tableName, tableMetadata] of Object.entries(schema.tables)) {
+                schemaInfo[schema.name][tableName] = {};
+                for (const column of tableMetadata.columns) {
+                    schemaInfo[schema.name][tableName][column.name] = column.type;
                 }
             }
         }
