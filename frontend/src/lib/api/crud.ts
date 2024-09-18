@@ -3,7 +3,7 @@
  * @description Provides functionality to generate CRUD operations for database tables.
  */
 
-import { apiClient } from './client';
+import { defaultApiClient } from './client';
 import type { SchemaTypes } from './schema-generator';
 
 /**
@@ -34,11 +34,11 @@ export function generateCrudOperations<T>(schema: string, table: string): CrudOp
     const basePath = `/${schema}/${table}`;
 
     return {
-        getAll: (params = {}) => apiClient.request<T[]>(basePath, { params }),
-        getOne: (id) => apiClient.request<T>(`${basePath}/${id}`),
-        create: (data) => apiClient.request<T>(basePath, { method: 'POST', body: JSON.stringify(data) }),
-        update: (id, data) => apiClient.request<T>(`${basePath}/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
-        delete: (id) => apiClient.request(`${basePath}/${id}`, { method: 'DELETE' }),
+        getAll: (params = {}) => defaultApiClient.request<T[]>(basePath, { params }),
+        getOne: (id) => defaultApiClient.request<T>(`${basePath}/${id}`),
+        create: (data) => defaultApiClient.request<T>(basePath, { method: 'POST', body: JSON.stringify(data) }),
+        update: (id, data) => defaultApiClient.request<T>(`${basePath}/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+        delete: (id) => defaultApiClient.request(`${basePath}/${id}`, { method: 'DELETE' }),
     };
 }
 

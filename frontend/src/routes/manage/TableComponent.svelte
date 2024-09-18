@@ -85,6 +85,7 @@
 
 {#if showModal}
     <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full" on:click={() => showModal = false}>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white"
              on:click|stopPropagation>
             <div class="mt-3 text-center">

@@ -1,10 +1,15 @@
+// * TailwindCSS Layout (https://tailwindcss.com)
 export const prerender = true
 export const ssr = false
 
 
-import { initializeSchemaTypes } from '$lib/api';
+// * Main App Layout
+import { schemaApiStore } from "$lib/stores";
 
 export async function load() {
-    await initializeSchemaTypes();
+    await schemaApiStore.loadSchemas();
     return {};
 }
+
+// * Some(?) Layouts
+// import { Layout } from '$lib/layout';

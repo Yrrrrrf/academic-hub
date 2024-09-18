@@ -5,7 +5,7 @@
     import TableMetadataForm from './TableMetadataForm.svelte';
     import FetchDataButton from './FetchDataButton.svelte';
     import DataTable from './DataTable.svelte';
-    import { schemaStore } from '$lib/stores/schemaStore';
+    import { schemaApiStore } from '$lib/stores';
 
     let expandedSchemas: Record<string, boolean> = {};
     let activeTable: Record<string, string | null> = {};
@@ -42,7 +42,7 @@
     }
 </script>
 
-{#each Object.entries($schemaStore) as [schema, tables]}
+{#each Object.entries($schemaApiStore.schemas) as [schema, tables]}
     <div class="mb-6 bg-white shadow rounded-lg p-4">
         <button
             class="flex justify-between items-center w-full text-left focus:outline-none"

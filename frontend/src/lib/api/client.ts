@@ -1,7 +1,6 @@
-/**
- * @file client.ts
- * @description Provides a centralized API client for making requests to the backend.
- */
+// src/lib/api/client.ts
+import { get } from 'svelte/store';
+import { api_url } from '$lib/stores/app';
 
 /**
  * Represents the structure of API request options.
@@ -27,7 +26,7 @@ export class ApiClient {
     constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
-
+    
     /**
      * Builds a URL with query parameters.
      * @param endpoint - The API endpoint.
@@ -45,6 +44,14 @@ export class ApiClient {
             });
         }
         return url.toString();
+    }
+
+    /**
+     * Updates the base URL of the API client.
+     * @param newBaseUrl - The new base URL to use for API requests.
+     */
+    updateBaseUrl(newBaseUrl: string) {
+        this.baseUrl = newBaseUrl;
     }
 
     /**
@@ -164,12 +171,30 @@ export class ApiClient {
             body: JSON.stringify(data),
         });
     }
+
+}
+
+/**
+ * Creates a default instance of the ApiClient using the API URL from the store.
+ * @returns An instance of ApiClient
+ */
+function createDefaultApiClient(): ApiClient {
+    const initialApiUrl = get(api_url);
+    const client = new ApiClient(initialApiUrl);
+
+    // Subscribe to changes in the api_url store
+    api_url.subscribe(newUrl => {
+        client.updateBaseUrl(newUrl);
+    });
+
+    return client;
 }
 
 /**
  * Default instance of the ApiClient.
- * Uses the base URL 'http://127.0.0.1:8000'.
+ * Uses the base URL from the api_url store.
  */
-const defaultApiClient = new ApiClient('http://127.0.0.1:8000');
-export { defaultApiClient as apiClient };
+export const defaultApiClient = createDefaultApiClient();
+
+// Export the default client as the default export
 export default defaultApiClient;

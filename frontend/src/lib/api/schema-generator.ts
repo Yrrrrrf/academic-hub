@@ -1,6 +1,6 @@
 // src/lib/api/schema-generator.ts
+import { defaultApiClient } from './client';
 
-import { apiClient } from './client';
 
 export interface ColumnMetadata {
     name: string;
@@ -57,7 +57,7 @@ function mapPgTypeToTs(pgType: string): string {
  */
 export async function generateSchemaTypes(): Promise<SchemaTypes> {
     try {
-        const schemas = await apiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
+        const schemas = await defaultApiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
         const schemaTypes: SchemaTypes = {};
 
         for (const schema of schemas) {
@@ -77,13 +77,14 @@ export async function generateSchemaTypes(): Promise<SchemaTypes> {
     }
 }
 
+
 /**
  * Fetches and returns the complete database schema information
  * @returns Promise resolving to SchemaTypes object with raw database types
  */
 export async function getMetadata(): Promise<SchemaTypes> {
     try {
-        const schemas = await apiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
+        const schemas = await defaultApiClient.request<{ name: string, tables: { [key: string]: TableMetadata } }[]>('/dt/schemas');
         const schemaInfo: SchemaTypes = {};
 
         for (const schema of schemas) {

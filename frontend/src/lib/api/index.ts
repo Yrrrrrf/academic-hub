@@ -4,9 +4,6 @@
  * This file exports the API client, schema generator, and dynamically generated CRUD operations.
  */
 
-import { apiClient } from './client';
-export { apiClient };
-
 export {
     generateSchemaTypes,
     generateTypeDeclarations,

@@ -1,17 +1,34 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { fade, fly } from 'svelte/transition';
+    import { goto } from '$app/navigation';
 
     interface Feature {
         icon: string;
         title: string;
         description: string;
+        route: string;
     }
 
     const features: Feature[] = [
-        { icon: '📚', title: 'Comprehensive Data Management', description: 'Handle student records, courses, and faculty information with ease.' },
-        { icon: '📊', title: 'Scalable Architecture', description: 'Designed to efficiently manage large volumes of academic data.' },
-        { icon: '🎨', title: 'User-friendly Interface', description: 'Intuitive design for enhanced user experience.' },
+        {   
+            icon: '📚', 
+            title: 'Comprehensive Data Management', 
+            description: 'Handle student records, courses, and faculty information with ease.',
+            route: '/manage'
+        },
+        {   
+            icon: '🎨', 
+            title: 'User-friendly Interface', 
+            description: 'Intuitive design for enhanced user experience.',
+            route: '/dashboard'
+        },
+        {   
+            icon: '📊', 
+            title: 'Scalable Architecture', 
+            description: 'Designed to efficiently manage large volumes of academic data.',
+            route: '/some'
+        },
     ];
 
     let visibleFeatures: Feature[] = [];
@@ -20,13 +37,13 @@
         const interval = setInterval(() => {
             if (visibleFeatures.length < features.length) {
                 visibleFeatures = [...visibleFeatures, features[visibleFeatures.length]];
-            } else {
-                clearInterval(interval);
-            }
+            } else {clearInterval(interval);}
         }, 500);
-
-        return () => clearInterval(interval);
     });
+
+    function navigateTo(route: string) {
+        goto(route);
+    }
 </script>
 
 <div class="text-center mb-16" in:fade={{ duration: 1000 }}>
@@ -38,13 +55,16 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
     {#each visibleFeatures as feature, i (feature.title)}
-        <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
-             in:fly={{ y: 50, duration: 500, delay: i * 100 }}>
-            <div class="card-body">
+        <button
+            class="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
+            on:click={() => navigateTo(feature.route)}
+            in:fly={{ y: 50, duration: 500, delay: i * 100 }}
+        >
+            <div class="card-body text-left">
                 <span class="text-5xl mb-4">{feature.icon}</span>
                 <h3 class="card-title text-accent text-2xl mb-2">{feature.title}</h3>
                 <p class="text-base-content/80">{feature.description}</p>
             </div>
-        </div>
+        </button>
     {/each}
 </div>

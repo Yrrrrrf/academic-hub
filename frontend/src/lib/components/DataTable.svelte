@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { api } from '$lib/api';
     import { onMount } from 'svelte';
+    import { schemaApiStore } from '$lib/stores/schemas';
 
     export let schema: string;
     export let table: string;
@@ -17,10 +17,20 @@
         loading = true;
         error = null;
         try {
+            const api = schemaApiStore.getApi();
+            if (!api) {
+                throw new Error("API not initialized. Please make sure schemas are loaded.");
+            }
+            if (!api[schema]) {
+                throw new Error(`Schema '${schema}' not found in the API.`);
+            }
+            if (!api[schema][table]) {
+                throw new Error(`Table '${table}' not found in schema '${schema}'.`);
+            }
             data = await api[schema][table].getAll();
         } catch (err) {
             console.error(`Failed to fetch data for ${schema}.${table}:`, err);
-            error = `Failed to fetch data for ${schema}.${table}. Please try again.`;
+            error = err instanceof Error ? err.message : `An unknown error occurred while fetching data for ${schema}.${table}.`;
         } finally {
             loading = false;
         }
