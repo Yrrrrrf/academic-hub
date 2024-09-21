@@ -1,22 +1,29 @@
-FROM node:18
+# Use an official Node.js image as the base image
+FROM node:18-alpine AS build
 
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy package files
-COPY package.json package-lock.json* ./
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Install dependencies in smaller batches
-RUN npm install --no-package-lock --ignore-scripts
-RUN npm install --no-package-lock
-RUN npm rebuild
+# Install dependencies
+RUN npm install
 
-# Copy the rest of the application
+# Copy all files from the current directory to the container
 COPY . .
 
-ENV PORT=3000
-EXPOSE $PORT
+# Build the app using the static adapter
+RUN npm run build
 
-# Install global dependencies if needed (like vite)
-RUN npm install -g vite
+# Use an official Nginx image to serve the static files
+FROM nginx:alpine AS serve
 
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+# Copy the built static files from the previous stage to Nginx's html folder
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 to access the app
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

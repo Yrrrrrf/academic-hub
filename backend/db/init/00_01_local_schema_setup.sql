@@ -7,19 +7,28 @@
 --     foundational structure for managing various aspects of an academic institution,
 --     from infrastructure and HR to academic programs and student management.
 --
+-- # Script steps:
+--     1. Creates specified schemas with a logical structure
+--     2. Creates roles with appropriate permissions
+--     3. Establishes cross-schema access where necessary
+--
 -- # Note:
---     This version uses hardcoded values for local development.
 --     Ensure this script is run by a user with sufficient privileges to create schemas and roles.
 
 -- Enable psql command echoing and stop on error
 \set ON_ERROR_STOP on
 \set ECHO all
 
--- Enable necessary extensions in the database
+-- ^ Enable necessary extensions in the database
+--    These extensions provide additional functionality for data management and analysis.
 DO $$
 DECLARE
-    ext TEXT;
-    extensions TEXT[] := ARRAY['uuid-ossp', 'pgcrypto', 'pg_trgm'];
+    ext TEXT;  -- Extension name
+    extensions TEXT[] := ARRAY[  -- List of extensions to enable
+        'uuid-ossp',  -- generate universally unique identifiers (UUIDs)
+        'pgcrypto',   -- cryptographic functions
+        'pg_trgm'     -- trigram matching for similarity search (for example, in full-text search)
+    ];
 BEGIN
     FOREACH ext IN ARRAY extensions
     LOOP
@@ -28,7 +37,7 @@ BEGIN
     END LOOP;
 END $$;
 
--- Function to create schemas
+-- ^ Function to create schemas
 CREATE OR REPLACE FUNCTION create_schemas(schema_names TEXT[])
 RETURNS VOID AS $$
 DECLARE
@@ -42,7 +51,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Function to create role and grant privileges
+-- ^ Function to create role and grant privileges
 CREATE OR REPLACE FUNCTION create_and_grant_role(
     role_name TEXT,
     role_password TEXT,
@@ -61,7 +70,7 @@ BEGIN
         RAISE NOTICE 'Password updated for existing role %', role_name;
     END IF;
 
-    -- Grant full privileges on primary schemas
+    -- Grant full privileges on primary schemas (for data management)
     FOREACH schema_name IN ARRAY primary_schemas
     LOOP
         EXECUTE format('GRANT ALL PRIVILEGES ON SCHEMA %I TO %I', schema_name, role_name);
@@ -71,7 +80,7 @@ BEGIN
         EXECUTE format('ALTER DEFAULT PRIVILEGES IN SCHEMA %I GRANT ALL PRIVILEGES ON SEQUENCES TO %I', schema_name, role_name);
     END LOOP;
 
-    -- Grant read privileges on specified schemas
+    -- Grant read privileges on specified schemas (for cross-schema access)
     FOREACH schema_name IN ARRAY read_schemas
     LOOP
         EXECUTE format('GRANT USAGE ON SCHEMA %I TO %I', schema_name, role_name);
@@ -83,7 +92,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Create schemas
+-- todo: Break it into many instances to expose the db partially
+
+
+-- * Create schemas
 SELECT create_schemas(ARRAY[
     'auth',
     'agnostic',

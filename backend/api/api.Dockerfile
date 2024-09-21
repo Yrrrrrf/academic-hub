@@ -14,10 +14,9 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Add some environment variables
-ENV DB_NAME='academic_hub'
-# ENV DB_HOST='host.docker.internal'
+# * DB_HOST must match the name of the database container
 ENV DB_HOST='a-hub-db'
+ENV DB_NAME='academic_hub'
 ENV DB_OWNER_ADMIN='academic_hub_owner'
 ENV DB_OWNER_PWORD='some_secure_password'
 

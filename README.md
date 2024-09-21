@@ -7,7 +7,9 @@
   <a href="https://github.com/Yrrrrrf/academic-hub">
     <img src="https://img.shields.io/badge/github-academic--hub-blue?style=for-the-badge&logo=github" alt="GitHub">
   </a>
-  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
+  <a href="./LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
+  </a>
   <img src="https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge" alt="Version">
 </p>
 

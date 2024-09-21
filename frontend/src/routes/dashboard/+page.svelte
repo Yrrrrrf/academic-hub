@@ -29,7 +29,7 @@
         averageGrade.set(calculatedAverage);
     });
 
-    function calculateAverageGrade(grades) {
+    function calculateAverageGrade(grades: { exam_type: string; grade: number }[]): number {
         if (grades.length === 0) return 0;
         const sum = grades.reduce((acc, grade) => acc + grade.grade, 0);
         return Math.round(sum / grades.length);
@@ -60,9 +60,8 @@
         <!-- Average Grade Widget -->
         <div class="bg-base-200 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center">
             <h2 class="text-xl font-semibold mb-4">Average Grade</h2>
-            <div class="text-4xl font-bold mb-4">{$averageGrade.toFixed(1)}%</div>
-            <div class="radial-progress text-primary" style="--value:{$averageGrade}; --size:12rem; --thickness: 1rem;">
-                {$averageGrade.toFixed(1)}%
+            <div class="radial-progress text-primary" style="--value:{$averageGrade}; --size:8rem; --thickness: 1rem;">
+                <div class="text-2xl font-bold">{$averageGrade.toFixed(1)}%</div>
             </div>
         </div>
 

@@ -1,5 +1,4 @@
 # Dockerfile for Academic Hub Database
-
 FROM postgres:16
 
 # Set environment variables for database configuration
@@ -9,21 +8,9 @@ ENV POSTGRES_PASSWORD="some_secure_password"
 ENV LANG=en_US.utf8
 ENV TZ=Etc/UTC
 
-# Set schema-specific variables
-# * Non password-related variables
-ENV SCHEMA_AGNOSTIC="agnostic"
-ENV SCHEMA_AUTH="auth"
 
 # * Password-related variables
 # * In production, use secrets management to store these values
-# ^ 
-ENV SCHEMA_INFRASTRUCTURE="infrastructure"
-ENV SCHEMA_HR="hr"
-ENV SCHEMA_ACADEMIC="academic"
-ENV SCHEMA_COURSE_OFFERING="course_offering"
-ENV SCHEMA_STUDENT="student"
-ENV SCHEMA_LIBRARY="library"
-
 ENV PASSWORD_INFRASTRUCTURE="infra_password"
 ENV PASSWORD_HR="hr_password"
 ENV PASSWORD_ACADEMIC="academic_password"

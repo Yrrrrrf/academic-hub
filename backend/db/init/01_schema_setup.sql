@@ -97,26 +97,15 @@ $$ LANGUAGE plpgsql;
 
 -- * Create schemas
 SELECT create_schemas(ARRAY[
-    -- * Core schemas
-    --     These are the main schemas that contain core data for the ORGANIZATION
-    'agnostic',              -- For shared data and cross-schema access
-    :'SCHEMA_AUTH',                  -- For authentication and authorization
-    'infrastructure',        -- For infrastructure-related (buildings, equipment, etc.)
-    :'SCHEMA_HR',                    -- For HR-related (employees, payroll, etc.)
-
-    -- * Functional schemas
-    --     These schemas are related to specific functions within the organization
-    'academic',              -- For academic management (academic programs, syllabi, etc.)
-    'course_offering',       -- For course offering-related (schedules, assignments, etc.)
-    'student',               -- For student-related (enrollment, grades, etc.)
-    'library'                -- For library-related (books, loans, etc.)
-
-    -- * Additional schemas (commented out for future use)
-    --     These schemas are for additional functions or departments
-    -- :'SCHEMA_FINANCE',            -- For finance-related (budgets, expenses, etc.)
-    -- :'SCHEMA_RESEARCH'            -- For research-related (projects, publications, etc.)
+    'auth',
+    'agnostic',
+    'infrastructure',
+    'hr',
+    'academic',
+    'course_offering',
+    'student',
+    'library'
 ]);
-
 
 -- * Create roles and grant privileges for each schema
 
@@ -128,7 +117,7 @@ SELECT create_and_grant_role(
     'infrastructure_admin',
     :'PASSWORD_INFRASTRUCTURE',
     ARRAY['infrastructure'],
-    ARRAY[:'SCHEMA_HR']  -- Read access to HR for asset assignment
+    ARRAY['hr']  -- Read access to HR for asset assignment
 );
 
 -- HR Management Schema
@@ -138,7 +127,7 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'hr_admin',
     :'PASSWORD_HR',
-    ARRAY[:'SCHEMA_HR', :'SCHEMA_AUTH'],
+    ARRAY['hr', 'auth'],
     ARRAY['academic']  -- Read access for academic roles
 );
 
@@ -161,7 +150,7 @@ SELECT create_and_grant_role(
     'course_offering_admin',
     :'PASSWORD_COURSE_OFFERING',
     ARRAY['course_offering'],
-    ARRAY['academic', :'SCHEMA_HR']  -- Read access for related data
+    ARRAY['academic', 'hr']  -- Read access for related data
 );
 
 -- Student Management Schema
@@ -171,7 +160,7 @@ SELECT create_and_grant_role(
 SELECT create_and_grant_role(
     'student_admin',
     :'PASSWORD_STUDENT',
-    ARRAY['student', :'SCHEMA_AUTH'],
+    ARRAY['student', 'auth'],
     ARRAY['academic', 'course_offering', 'library', 'agnostic']  -- Read access for academic and library data
 );
 
