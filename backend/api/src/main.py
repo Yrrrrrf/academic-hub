@@ -1,5 +1,5 @@
 """Main file for the FastAPI application"""
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from forge.utils import Config, allow_all_middleware
 
 from .db import schema_routers, metadata
@@ -18,11 +18,31 @@ config: Config = Config(  # * Set the configuration
 config.set_app_data(app)  # Set the app metadata
 config.setup_logging()  # Setup logging (add some color to the logs)
 
+
+
+
+
+
+
+
+
+
+# test_router = APIRouter(prefix="/test", tags=["TEST"])
+# @test_router.get("/test")
+# def test(): return {"message": "Hello, World!"}
+
+# @app.get("/t02")
+# def t02(): return {"PENCHS: PENCHS"}
+
+
+
 # * Add the routes to the FastAPI application
 [app.include_router(route) for route in [
     # enums_router,  # ^ Enum routes (for getting the enums in the database)
+    # test_router,
     metadata,  # Metadata routes (for getting metadata about the database)
     *schema_routers  # ^ unpack the routers
+
 ]]  # Include the routes in the FastAPI application
 
 # * Startup event

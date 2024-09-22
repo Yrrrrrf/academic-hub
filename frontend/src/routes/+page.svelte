@@ -21,7 +21,7 @@
             icon: '🎨', 
             title: 'User-friendly Interface', 
             description: 'Intuitive design for enhanced user experience.',
-            route: '/dashboard'
+            route: '/academic'
         },
         {   
             icon: '📊', 

@@ -1,52 +1,65 @@
 version: '3.8'
 
 services:
-  db:
+  # Frontend service
+  frontend:
     build:
-      context: ./backend
-      dockerfile: db.Dockerfile  # PostgreSQL database
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=some_user
-      - POSTGRES_PASSWORD=some_password
-      - POSTGRES_DB=academic_hub
-
-  api:
-    build: 
-      context: ./backend
-      dockerfile: api.Dockerfile  # API server
-    ports:
-      - "8000:8000"  # Expose the API server on port 8000
-    depends_on:
-      - db  # Ensure the database is ready before starting the API
-    environment:
-      - DB_NAME=academic_hub
-      - DB_HOST=db
-      - DB_OWNER_ADMIN=academic_hub_owner
-      - DB_OWNER_PWORD=some_password
-
-  hub:
-    build: 
       context: ./frontend
-      dockerfile: hub.Dockerfile  # HUB (web app)
+      dockerfile: hub.Dockerfile
     ports:
-      # todo: update the port number to match the frontend app
-      - "3000:3000"
+      - "5173:5173"  # Map host port 5173 to container port 5173 for Vite dev server
+    volumes:
+      - C:/Users/fire/Documents/Code/web/academic-hub/frontend:/app
+      - /app/node_modules  # Anonymous volume to prevent overwriting node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev -- --host 0.0.0.0  # Override command to run dev server
     depends_on:
       - api
+    networks:
+      - a-hub-net
+
+  # Backend API service
+  api:
+    build:
+      context: ./backend/api
+      dockerfile: api.Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - C:/Users/fire/Documents/Code/web/academic-hub/backend/api:/app
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${POSTGRES_DB}
+      - DB_OWNER_ADMIN=${POSTGRES_USER}
+      - DB_OWNER_PWORD=${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+    networks:
+      - a-hub-net
+
+  # Database service
+  db:
+    build:
+      context: ./backend/db
+      dockerfile: db.Dockerfile
+    volumes:
+      - a-hub-dt:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PASSWORD_INFRASTRUCTURE=${PASSWORD_INFRASTRUCTURE}
+      - PASSWORD_HR=${PASSWORD_HR}
+      - PASSWORD_ACADEMIC=${PASSWORD_ACADEMIC}
+      - PASSWORD_COURSE_OFFERING=${PASSWORD_COURSE_OFFERING}
+      - PASSWORD_STUDENT=${PASSWORD_STUDENT}
+      - PASSWORD_LIBRARY=${PASSWORD_LIBRARY}
+    networks:
+      - a-hub-net
+
+networks:
+  a-hub-net:
 
 volumes:
-  postgres_data:
-    name: academic_hub_postgres_data
-    labels:
-      - "project=academic_hub"
-      - "environment=development"
-
-
-# Additional explanations:
-# 1. The backend service uses a multi-stage build process defined in its Dockerfile.
-# 2. The frontend service assumes a simple build process, likely using Node.js and npm/yarn.
-# 3. The db service uses the official PostgreSQL image, which comes with built-in initialization features.
-# 4. Environment variables are used to configure services without hardcoding values in Dockerfiles.
-# 5. The command for the backend service is a shell script that ensures proper startup sequencing.
+  a-hub-dt:

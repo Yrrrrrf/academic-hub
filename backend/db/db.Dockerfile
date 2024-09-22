@@ -2,9 +2,6 @@
 FROM postgres:16
 
 # Set environment variables for database configuration
-ENV POSTGRES_DB="academic_hub"
-ENV POSTGRES_USER="academic_hub_owner"
-ENV POSTGRES_PASSWORD="some_secure_password"
 ENV LANG=en_US.utf8
 ENV TZ=Etc/UTC
 

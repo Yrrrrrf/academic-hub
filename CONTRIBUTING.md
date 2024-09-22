@@ -1,3 +1,5 @@
+<!-- TODO: LOOK FOR THE BEST WAY TO ADD THE CONTRIBUTING.md FILE TO THE PROJECT -->
+
 # Contributing to Academic Hub
 
 First off, thank you for considering contributing to Academic Hub! It's people like you that make Academic Hub such a great tool. We welcome contributions from everyone, whether it's a bug report, feature suggestion, or code contribution.

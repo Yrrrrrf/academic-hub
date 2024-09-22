@@ -17,22 +17,7 @@
   A comprehensive Desktop + Web application for managing critical data in academic institutes.
 </p>
 
-## Table of Contents
-
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-- [Usage](#usage)
-- [Database Schema](#database-schema)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Features
-
-Academic Hub offers a robust set of features designed to streamline academic data management:
 
 - **Comprehensive Data Management**: Handle student records, course information, faculty details, and more.
 - **Real-time Updates**: Utilize PLpgSQL real-time capabilities for instant data synchronization.
@@ -42,63 +27,55 @@ Academic Hub offers a robust set of features designed to streamline academic dat
 - **Secure Authentication**: Implement role-based access control for data protection.
 - **Reporting and Analytics**: Generate insightful reports on various academic metrics.
 
-## Technology Stack
+## Tech Stack
 
 - **Backend**:
-    <!-- - [Supabase](https://supabase.io/) for database and API -->
-	- [FastAPI](https://www.python.org/) for backend development
-	- [PostgreSQL](https://www.postgresql.org/) for robust data storage
+    - [FastAPI](https://www.python.org/) for backend development
+    - [PostgreSQL](https://www.postgresql.org/) for robust data storage
 - **Frontend**:
-	- [SvelteKit](https://kit.svelte.dev/) for efficient web development
-   	- [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
+    - [SvelteKit](https://kit.svelte.dev/) for efficient web development
+    - [DaisyUI](https://daisyui.com/) for responsive and attractive UI components
 - **Desktop Application**:
-	- [Tauri](https://tauri.app/) for cross-platform desktop development
+    - [Tauri](https://tauri.app/) for cross-platform desktop development
 
-## Getting Started
+## Installation
 
-### Prerequisites
-
-Before you begin, ensure you have the following installed:
-
-- [PostgreSQL](https://www.postgresql.org/) (v12 or later)
-- [Python](https://www.python.org/) (v3.9 or later)
-- [Node.js](https://nodejs.org/) (v14 or later) or [bun](https://bun.sh/)
-
-### Installation
+### Docker Installation (Recommended)
 
 1. Clone the repository:
 ```bash
 git clone https://github.com/Yrrrrrf/academic-hub.git
-cd academic-hub  # Change to project directory
+cd academic-hub
 ```
 
-2. Install dependencies:
+2. Create a `.env` file in the project root with the following content:
 ```bash
-npm install  # Install Node.js dependencies
-bun install  # Install bun dependencies
+# * db credentials
+POSTGRES_DB="academic_hub"
+POSTGRES_USER="academic_hub_owner"
+POSTGRES_PASSWORD="some_secure_password"
+
+# * db schema passwords
+PASSWORD_INFRASTRUCTURE="infra_password"
+PASSWORD_HR="hr_password"
+PASSWORD_ACADEMIC="academic_password"
+PASSWORD_COURSE_OFFERING="course_offering_password"
+PASSWORD_STUDENT="student_password"
+PASSWORD_LIBRARY="library_password"
 ```
 
-3. Set up the main db using the `*.sql` files in the [`sql`](./sql) directory.
-	- Execute the [`00_db_setup.sql`](./sql/00_db_setup.sql) file to create the main database.
-	- Execute the rest of the files in the order using the `academic_hub_owner` role to create the necessary schemas and tables.
-
-4. Run the development server:
+3. Build and start the Docker containers:
 ```bash
-npm run dev  # or `bun` if you are using bun
+docker-compose up --build
 ```
 
-5. For desktop app development, install Tauri CLI:
-```bash
-npm install -g @tauri-apps/cli   # Install Tauri CLI
-```
+### Local Installation
+
+For step-by-step instructions on how to set up the project locally without Docker, please refer to our [Local Installation Guide](./resources/local-installation.md).
 
 ## Usage
-
-- Access the web application at `http://localhost:5173`. (Port may vary based on your configuration)
-- To run the desktop application:
-```bash
-npm run tauri dev  # Start the Tauri dev server
-```
+- Access Web interface: http://localhost:5173
+- Check API docs: http://localhost:8000/docs
 
 ## Database Schema
 
@@ -108,10 +85,6 @@ Including the separation in some schemas that help to organize the data in a mor
 ![Database Schema](./resources/db_erd.png "db main schema")
 
 This separation allows for better organization and management of data.
-
-## API Documentation
-
-API documentation is available at `/{port}/docs` when running the development server. It provides detailed information about available endpoints, request/response formats, and authentication requirements.
 
 ## Contributing
 

@@ -2,6 +2,8 @@
 
 FROM python:3.12-slim
 
+WORKDIR /app
+
 # Set environment variables
 # PYTHONDONTWRITEBYTECODE: Prevents Python from writing pyc files to disc (equivalent to python -B option)
 # PYTHONUNBUFFERED: Prevents Python from buffering stdout and stderr (equivalent to python -u option)
