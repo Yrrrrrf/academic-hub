@@ -12,7 +12,8 @@ db_manager: DBForge = DBForge(config=DBConfig(
     #  * Set the database connection parameters (& default values)
     user=os.environ.get('DB_OWNER_ADMIN') or 'academic_hub_owner',
     password=os.environ.get('DB_OWNER_PWORD') or 'some_secure_password',
-    host=os.environ.get('DB_HOST') or 'a-hub-db',
+    # host=os.environ.get('DB_HOST') or 'a-hub-db',  # * for the docker-compose setup
+    host=os.environ.get('DB_HOST') or 'localhost',
     database=os.environ.get('DB_NAME') or 'academic_hub',
 ))
 

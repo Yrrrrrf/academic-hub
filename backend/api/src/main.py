@@ -19,23 +19,6 @@ config.set_app_data(app)  # Set the app metadata
 config.setup_logging()  # Setup logging (add some color to the logs)
 
 
-
-
-
-
-
-
-
-
-# test_router = APIRouter(prefix="/test", tags=["TEST"])
-# @test_router.get("/test")
-# def test(): return {"message": "Hello, World!"}
-
-# @app.get("/t02")
-# def t02(): return {"PENCHS: PENCHS"}
-
-
-
 # * Add the routes to the FastAPI application
 [app.include_router(route) for route in [
     # enums_router,  # ^ Enum routes (for getting the enums in the database)
