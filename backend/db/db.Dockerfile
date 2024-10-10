@@ -16,9 +16,9 @@ ENV PASSWORD_STUDENT="student_password"
 ENV PASSWORD_LIBRARY="library_password"
 
 # Copy the schema setup SQL file
-COPY init/01_schema_setup.sql /init/
-COPY init/02_tables/*.sql /init/
-COPY init/03_data/*.sql /init/
+COPY init/01-schema-setup.sql /init/
+COPY init/02-tables/*.sql /init/
+COPY init/03-data/*.sql /init/
 # COPY init/04_data/*.sql /init/
 
 # Copy the initialization script

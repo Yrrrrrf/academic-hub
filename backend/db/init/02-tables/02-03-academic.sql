@@ -28,13 +28,20 @@ COMMENT ON COLUMN academic.program.is_active IS 'Indicates if the program is cur
 CREATE INDEX idx_program_code ON academic.program(code);
 CREATE INDEX idx_program_degree_level ON academic.program(degree_level);
 
--- Course: Defines individual courses offered by the institution
+-- Program Category: Defines the main categories of programs
+CREATE TYPE academic.course_category_enum AS ENUM (
+    'basic',  -- any general education courses
+    'core',  -- some specific courses required for the program
+    'advanced'  -- specialized courses for the program
+);
+
 CREATE TABLE academic.course (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     code VARCHAR(20) NOT NULL UNIQUE,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     credits NUMERIC(2,0) NOT NULL,
+    category academic.course_category_enum,
     is_active BOOLEAN DEFAULT true
 );
 
@@ -43,27 +50,12 @@ COMMENT ON COLUMN academic.course.code IS 'Course code (e.g., CS101)';
 COMMENT ON COLUMN academic.course.title IS 'Title of the course';
 COMMENT ON COLUMN academic.course.description IS 'Detailed description of the course';
 COMMENT ON COLUMN academic.course.credits IS 'Number of credits for the course';
+COMMENT ON COLUMN academic.course.category IS 'Category of the course within the curriculum structure';
 COMMENT ON COLUMN academic.course.is_active IS 'Indicates if the course is currently active';
 
 CREATE INDEX idx_course_code ON academic.course(code);
 CREATE INDEX idx_course_credits ON academic.course(credits);
-
--- Course Topic: Maps courses to topics from the agnostic schema
-CREATE TABLE academic.course_topic (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    course_id UUID NOT NULL REFERENCES academic.course(id),
-    topic_id UUID NOT NULL REFERENCES agnostic.topic(id),
-    relevance_level INT CHECK (relevance_level BETWEEN 1 AND 5),
-    CONSTRAINT unique_course_topic UNIQUE (course_id, topic_id)
-);
-
-COMMENT ON COLUMN academic.course_topic.id IS 'Unique identifier for the course-topic relationship';
-COMMENT ON COLUMN academic.course_topic.course_id IS 'Reference to the course';
-COMMENT ON COLUMN academic.course_topic.topic_id IS 'Reference to the topic from the agnostic schema';
-COMMENT ON COLUMN academic.course_topic.relevance_level IS 'Indicates the relevance of the topic to the course (1-5)';
-
-CREATE INDEX idx_course_topic_course ON academic.course_topic(course_id);
-CREATE INDEX idx_course_topic_topic ON academic.course_topic(topic_id);
+CREATE INDEX idx_course_category ON academic.course(category);
 
 -- Course Prerequisite: Defines prerequisites for courses
 CREATE TABLE academic.course_prerequisite (
