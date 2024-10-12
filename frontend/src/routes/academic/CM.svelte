@@ -44,7 +44,8 @@
     let curriculum: Curriculum = {};
     let maxSemesters = 0;
 
-    const programId = 'ce123456-7890-4321-abcd-ef1234567890';
+    const programId = 'ce123456-7890-4321-abcd-ef1234567890';  // Computer Engineering
+    // const programId = 'aa6e4e1a-6a0f-4a06-aafc-335a74b385d0';  // Civil Engineering
 
     async function loadData() {
         try {

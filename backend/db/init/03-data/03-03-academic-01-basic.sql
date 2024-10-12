@@ -26,7 +26,7 @@ BEGIN
     PERFORM add_course('c0103000-0000-4000-a000-000000000003'::UUID, 'MATH-01', 7, 'Álgebra superior', 'Fundamentos de álgebra y sus aplicaciones', course_type);
     PERFORM add_course('c0203000-0000-4000-a000-000000000003'::UUID, 'MATH-02', 7, 'Álgebra lineal', 'Estudio de espacios vectoriales y transformaciones lineales', course_type);
     PERFORM add_course('c0105000-0000-4000-a000-000000000005'::UUID, 'MATH-03', 4, 'Geometría analítica', 'Estudio de geometría con métodos algebraicos', course_type);
-    PERFORM add_course('c0304000-0000-4000-a000-000000000004'::UUID, 'MATH-04', 7, 'Matemáticas discretas', 'Estructuras matemáticas discretas en ciencias de la computación', course_type);
+    PERFORM add_course('c0304000-0000-4000-a000-000000000012'::UUID, 'MATH-04', 7, 'Matemáticas discretas', 'Estructuras matemáticas discretas en ciencias de la computación', course_type);
 
         -- Calculus
     PERFORM add_course('c0101000-0000-4000-a000-000000000101'::UUID, 'CALC-01', 7, 'Cálculo I', 'Fundamentos de cálculo diferencial e integral', course_type);
@@ -37,7 +37,7 @@ BEGIN
         -- Statistics
     PERFORM add_course('c0302000-0000-4000-a000-000000000002'::UUID, 'STAT-01', 7, 'Probabilidad y estadística', 'Fundamentos de probabilidad y estadística', course_type);
     PERFORM add_course('c0403000-0000-4000-a000-000000000003'::UUID, 'MATH-06', 5, 'Métodos numéricos', 'Técnicas numéricas para resolución de problemas matemáticos', course_type);
-
+    PERFORM add_course('c0402000-0000-4000-a000-000000000002'::UUID, 'STAT-02', 7, 'Métodos estadísticos', 'Estudio de métodos estadísticos y su aplicación', course_type);
     -- Ethics
     PERFORM add_course('c0106000-0000-4000-a000-000000000006'::UUID, 'ENGR-01', 7, 'El ingeniero y su entorno socioeconómico', 'Contextualización del rol del ingeniero en la sociedad', course_type);
     PERFORM add_course('c0207000-0000-4000-a000-000000000007'::UUID, 'PHIL-01', 4, 'Epistemología', 'Estudio de la teoría del conocimiento', course_type);

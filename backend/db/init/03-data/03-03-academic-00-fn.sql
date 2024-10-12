@@ -26,7 +26,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Function to associate a course with a program (unchanged)
+-- Function to associate a course with a progra
 CREATE OR REPLACE FUNCTION associate_course_with_program(
     p_program_id UUID,
     p_course_id UUID,
