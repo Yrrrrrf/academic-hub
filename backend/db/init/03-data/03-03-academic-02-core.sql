@@ -3,8 +3,12 @@ DO $$
 DECLARE
     course_type academic.course_category_enum DEFAULT 'core';
 BEGIN
+    -- Add this new course for Civil Engineering
+    PERFORM add_course('c0209000-0000-4000-a000-000000000009'::UUID, 'CIVL-GRAPH', 6, 'Lenguaje gráfico', 'Técnicas de dibujo y representación gráfica para ingeniería civil', course_type);
+
     -- Semester 2
     PERFORM add_course('c0204000-0000-4000-a000-000000000014'::UUID, 'PRO-02-01', 7, 'Programación II', 'Programación avanzada y estructuras de datos', course_type);
+
 
     -- Semester 3
     PERFORM add_course('c0305000-0000-4000-a000-000000000005'::UUID, 'DAT-03-01', 7, 'Bases de datos I', 'Diseño y gestión de bases de datos', course_type);

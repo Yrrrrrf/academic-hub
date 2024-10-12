@@ -44,8 +44,8 @@
     let curriculum: Curriculum = {};
     let maxSemesters = 0;
 
-    const programId = 'ce123456-7890-4321-abcd-ef1234567890';  // Computer Engineering
-    // const programId = 'aa6e4e1a-6a0f-4a06-aafc-335a74b385d0';  // Civil Engineering
+    // const programId = 'ce123456-7890-4321-abcd-ef1234567890';  // Computer Engineering
+    const programId = '9a173283-6a6c-44bd-8899-e00840511262';  // Civil Engineering
 
     async function loadData() {
         try {
@@ -56,9 +56,7 @@
             programCourses = await programCourseApi.getAll({ program_id: programId });
             console.log('Program Courses:', programCourses);
 
-            const coursePromises = programCourses.map(pc => 
-                courseApi.getAll({ id: pc.course_id })
-            );
+            const coursePromises = programCourses.map(pc => courseApi.getAll({ id: pc.course_id }));
             const courseResults = await Promise.all(coursePromises);
             courses = courseResults.flatMap(result => result);
             console.log('Courses:', courses);
@@ -67,9 +65,9 @@
                 const programCourse = programCourses.find(pc => pc.course_id === course.id);
                 if (programCourse) {
                     const semester = programCourse.recommended_semester;
-                if (!acc[semester]) acc[semester] = [];
-                    acc[semester].push(course);
-                    maxSemesters = Math.max(maxSemesters, semester);
+                    if (!acc[semester]) acc[semester] = [];
+                        acc[semester].push(course);
+                        maxSemesters = Math.max(maxSemesters, semester);
                 }
                 return acc;
             }, {});
@@ -90,10 +88,6 @@
     }
 
     onMount(loadData);
-
-    function getSubjectColor(code: string): string {
-        return randomColor();
-    }
 
     function randomColor(): string {
         const colors = [
@@ -125,7 +119,7 @@
                     <div in:fade="{{ duration: 300 }}">
                     <CM_Subject
                         subject={course}
-                        color={getSubjectColor(course.code)}
+                        color={randomColor()}
                         status="Not Started"
                         theoreticalHours={4}
                         practiceHours={2}
