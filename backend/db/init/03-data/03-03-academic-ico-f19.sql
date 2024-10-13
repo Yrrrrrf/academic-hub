@@ -1,16 +1,11 @@
--- File: 03-03-academic-ico-f19.sql
+-- 03-03-academic-ico-f19.sql
 DO $$
 DECLARE
     v_program_id UUID;
-    course_type academic.course_category_enum DEFAULT 'advanced';
+    course_type academic.course_category DEFAULT 'advanced';
 BEGIN
-    -- Retrieve the existing ICO program ID
-    SELECT id INTO v_program_id
-    FROM academic.program
-    WHERE code = 'ICO';
-
-    -- If the program doesn't exist, create it
-    IF v_program_id IS NULL THEN
+    SELECT id INTO v_program_id FROM academic.program WHERE code = 'ICO';  -- retrieve the program ID
+    IF v_program_id IS NULL THEN  -- ! If the program doesn't exist, create it
         INSERT INTO academic.program (id, code, name, description, degree_level, is_active)
         VALUES (
             'ce123456-7890-4321-abcd-ef1234567890'::UUID,
@@ -23,15 +18,14 @@ BEGIN
         RETURNING id INTO v_program_id;
     END IF;
 
-    -- Semester 1
+    -- * Semester 1
     PERFORM associate_course_with_program(v_program_id, 'c0102000-0000-4000-a000-000000000002', TRUE, 1); -- Física
     PERFORM associate_course_with_program(v_program_id, 'c0103000-0000-4000-a000-000000000003', TRUE, 1); -- Álgebra superior
     PERFORM associate_course_with_program(v_program_id, 'c0306000-0000-4000-a000-000000000606', TRUE, 1); -- Programación
     PERFORM associate_course_with_program(v_program_id, 'c0105000-0000-4000-a000-000000000005', TRUE, 1); -- Geometría analítica
     PERFORM associate_course_with_program(v_program_id, 'c0101000-0000-4000-a000-000000000101', TRUE, 1); -- Cálculo I
     PERFORM associate_course_with_program(v_program_id, 'c0106000-0000-4000-a000-000000000006', TRUE, 1); -- El ingeniero y su entorno socioeconómico
-
-    -- Semester 2
+    -- * Semester 2
     PERFORM associate_course_with_program(v_program_id, 'c0204000-0000-4000-a000-000000000014', TRUE, 2); -- Programación II
     PERFORM associate_course_with_program(v_program_id, 'c0202000-0000-4000-a000-000000000002', TRUE, 2); -- Ecuaciones diferenciales
     PERFORM associate_course_with_program(v_program_id, 'c0203000-0000-4000-a000-000000000003', TRUE, 2); -- Álgebra lineal
@@ -39,8 +33,7 @@ BEGIN
     PERFORM associate_course_with_program(v_program_id, 'c0201000-0000-4000-a000-000000000001', TRUE, 2); -- Cálculo II
     PERFORM associate_course_with_program(v_program_id, 'c0207000-0000-4000-a000-000000000007', TRUE, 2); -- Epistemología
     PERFORM associate_course_with_program(v_program_id, 'c0206000-0000-4000-a000-000000000006', TRUE, 2); -- Inglés 5
-
-    -- Semester 3
+    -- * Semester 3
     PERFORM associate_course_with_program(v_program_id, 'c0305000-0000-4000-a000-000000000005', TRUE, 3); -- Bases de datos I
     PERFORM associate_course_with_program(v_program_id, 'c0304000-0000-4000-a000-000000000004', TRUE, 3); -- Paradigmas de programación I
     PERFORM associate_course_with_program(v_program_id, 'c0307000-0000-4000-a000-000000000007', TRUE, 3); -- Comunicación y relaciones humanas
@@ -48,8 +41,7 @@ BEGIN
     PERFORM associate_course_with_program(v_program_id, 'c0304000-0000-4000-a000-000000000012', TRUE, 3); -- Matemáticas discretas
     PERFORM associate_course_with_program(v_program_id, 'c0301000-0000-4000-a000-000000000001', TRUE, 3); -- Cálculo III
     PERFORM associate_course_with_program(v_program_id, 'c0306000-0000-4000-a000-000000000306', TRUE, 3); -- Inglés 6
-
---     -- Semester 4
+    -- * Semester 4
     PERFORM associate_course_with_program(v_program_id, 'c0401000-0000-4000-a000-000000000001', TRUE, 4); -- Arquitectura de computadoras
     PERFORM associate_course_with_program(v_program_id, 'c0405000-0000-4000-a000-000000000005', TRUE, 4); -- Bases de datos II
     PERFORM associate_course_with_program(v_program_id, 'c0404000-0000-4000-a000-000000000004', TRUE, 4); -- Paradigmas de programación II
@@ -57,8 +49,7 @@ BEGIN
     PERFORM associate_course_with_program(v_program_id, 'c0403000-0000-4000-a000-000000000003', TRUE, 4); -- Métodos numéricos
     PERFORM associate_course_with_program(v_program_id, 'c0204000-0000-4000-a000-000000000004', TRUE, 4); -- Electromagnetismo
     PERFORM associate_course_with_program(v_program_id, 'c0407000-0000-4000-a000-000000000007', TRUE, 4); -- Inglés 7
---
-    -- Semester 5
+   -- * Semester 5
     PERFORM associate_course_with_program(v_program_id, 'c0501000-0000-4000-a000-000000000001', TRUE, 5); -- Circuitos eléctricos y electrónicos
     PERFORM associate_course_with_program(v_program_id, 'c0502000-0000-4000-a000-000000000002', TRUE, 5); -- Transmisión de datos
     PERFORM associate_course_with_program(v_program_id, 'c0503000-0000-4000-a000-000000000003', TRUE, 5); -- Investigación de operaciones
@@ -66,28 +57,22 @@ BEGIN
     PERFORM associate_course_with_program(v_program_id, 'c0505000-0000-4000-a000-000000000005', TRUE, 5); -- Ensambladores
     PERFORM associate_course_with_program(v_program_id, 'c0506000-0000-4000-a000-000000000006', TRUE, 5); -- Inteligencia artificial
     PERFORM associate_course_with_program(v_program_id, 'c0507000-0000-4000-a000-000000000007', TRUE, 5); -- Inglés 8
-
-    -- Semester 6
+    -- * Semester 6
     PERFORM associate_course_with_program(v_program_id, 'c0601000-0000-4000-a000-000000000001', TRUE, 6); -- Sistemas analógicos
     PERFORM associate_course_with_program(v_program_id, 'c0602000-0000-4000-a000-000000000002', TRUE, 6); -- Protocolos de comunicación de datos
     PERFORM associate_course_with_program(v_program_id, 'c0603000-0000-4000-a000-000000000003', TRUE, 6); -- Administración de recursos informáticos
     PERFORM associate_course_with_program(v_program_id, 'c0604000-0000-4000-a000-000000000004', TRUE, 6); -- Ingeniería de software II
     PERFORM associate_course_with_program(v_program_id, 'c0605000-0000-4000-a000-000000000005', TRUE, 6); -- Compiladores
     PERFORM associate_course_with_program(v_program_id, 'c0606000-0000-4000-a000-000000000006', TRUE, 6); -- Procesamiento de imágenes digitales
-
-    -- Semester 7
+    -- * Semester 7
     PERFORM associate_course_with_program(v_program_id, 'c0701000-0000-4000-a000-000000000001', TRUE, 7); -- Sistemas digitales
     PERFORM associate_course_with_program(v_program_id, 'c0702000-0000-4000-a000-000000000002', TRUE, 7); -- Arquitectura de redes
     PERFORM associate_course_with_program(v_program_id, 'c0703000-0000-4000-a000-000000000003', TRUE, 7); -- Administración de proyectos informáticos
     PERFORM associate_course_with_program(v_program_id, 'c0705000-0000-4000-a000-000000000005', TRUE, 7); -- Sistemas operativos
     PERFORM associate_course_with_program(v_program_id, 'c0706000-0000-4000-a000-000000000006', TRUE, 7); -- Robótica
     PERFORM associate_course_with_program(v_program_id, 'c0707000-0000-4000-a000-000000000007', TRUE, 7); -- Graficación computacional
-
-    -- Advanced courses (dark-gray)
-    -- Semester 7
     CALL add_course_to_program(v_program_id, 'c0704000-0000-4000-a000-000000000004'::UUID, 'ICO-07-04', 5, TRUE, 7, 'Ciencia de los datos', 'Análisis y procesamiento de grandes volúmenes de datos', TRUE, course_type);
-
-    -- Semester 8
+    -- * Semester 8
     PERFORM associate_course_with_program(v_program_id, 'c0802000-0000-4000-a000-000000000002', TRUE, 8); -- Seguridad de la información
     CALL add_course_to_program(v_program_id, 'c0801000-0000-4000-a000-000000000001'::UUID, 'ICO-08-01', 6, TRUE, 8, 'Sistemas embebidos', 'Diseño y programación de sistemas embebidos', TRUE, course_type);
     CALL add_course_to_program(v_program_id, 'c0803000-0000-4000-a000-000000000003'::UUID, 'ICO-08-03', 4, TRUE, 8, 'Gestión de proyectos de investigación', 'Metodología y gestión de proyectos de investigación', TRUE, course_type);
@@ -98,8 +83,7 @@ BEGIN
     CALL add_course_to_program(v_program_id, 'c0807000-0000-4000-a000-000000000007'::UUID, 'ICO-08-07', 5, FALSE, 8, 'Análisis y diseño de redes', 'Diseño y análisis de redes de comunicación', FALSE, course_type);
     CALL add_course_to_program(v_program_id, 'c0808000-0000-4000-a000-000000000008'::UUID, 'ICO-08-08', 5, FALSE, 8, 'Visión artificial', 'Fundamentos y aplicaciones de visión artificial', FALSE, course_type);
     CALL add_course_to_program(v_program_id, 'c0809000-0000-4000-a000-000000000009'::UUID, 'ICO-08-09', 5, FALSE, 8, 'Reconocimiento de patrones', 'Técnicas de reconocimiento de patrones', FALSE, course_type);
-
-    -- Semester 9
+    -- * Semester 9
     CALL add_course_to_program(v_program_id, 'c0901000-0000-4000-a000-000000000001'::UUID, 'ICO-09-01', 5, TRUE, 9, 'Proyecto integral de comunicación de datos', 'Desarrollo de proyectos de redes y comunicaciones', TRUE, course_type);
     CALL add_course_to_program(v_program_id, 'c0902000-0000-4000-a000-000000000002'::UUID, 'ICO-09-02', 5, TRUE, 9, 'Proyecto integral de ingeniería de software', 'Desarrollo de proyectos de ingeniería de software', TRUE, course_type);
     CALL add_course_to_program(v_program_id, 'c0903000-0000-4000-a000-000000000003'::UUID, 'ICO-09-03', 5, TRUE, 9, 'Tecnologías computacionales II', 'Aplicaciones avanzadas de tecnologías computacionales', TRUE, course_type);
@@ -116,16 +100,6 @@ EXCEPTION
     WHEN OTHERS THEN
         RAISE EXCEPTION 'An error occurred while adding ICO program courses: %', SQLERRM;
 END $$;
-
-
-
-
-
-
-
-
-
-
 
 
 -- * Add the course prerequisites for the Computer Engineering program (Ingeniería en Computación) (F19 curriculum)
@@ -170,5 +144,3 @@ END $$;
 --     -- Computational technologies prerequisites
 --     ('c0903000-0000-4000-a000-000000000003', 'c0804000-0000-4000-a000-000000000004')  -- Tecnologías computacionales II requires Tecnologías computacionales I
 -- ;
-
-

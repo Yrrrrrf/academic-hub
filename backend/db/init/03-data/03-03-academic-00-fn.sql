@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION add_course(
     p_credits INTEGER,
     p_title VARCHAR(255),
     p_description TEXT,
-    p_category academic.course_category_enum DEFAULT 'basic',
+    p_category academic.course_category DEFAULT 'basic',
     p_is_active BOOLEAN DEFAULT TRUE
 ) RETURNS UUID AS $$
 DECLARE
@@ -55,7 +55,7 @@ CREATE OR REPLACE PROCEDURE add_course_to_program(
     p_title VARCHAR(255),
     p_description TEXT,
     p_is_active BOOLEAN DEFAULT TRUE,
-    p_category academic.course_category_enum DEFAULT 'basic'
+    p_category academic.course_category DEFAULT 'basic'
 ) AS $$
 DECLARE
     v_course_id UUID;

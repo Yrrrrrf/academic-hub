@@ -1,14 +1,12 @@
 DO $$
 DECLARE
-    course_type academic.course_category_enum DEFAULT 'basic';
+    course_type academic.course_category DEFAULT 'basic';
 BEGIN
     -- English courses
     PERFORM add_course('c0206000-0000-4000-a000-000000000006'::UUID,'ENGLISH-05', 6, 'Inglés 5', 'Curso avanzado de inglés', course_type);
     PERFORM add_course('c0306000-0000-4000-a000-000000000306'::UUID,'ENGLISH-06', 6, 'Inglés 6', 'Curso avanzado de inglés', course_type);
     PERFORM add_course('c0407000-0000-4000-a000-000000000007'::UUID,'ENGLISH-07', 6, 'Inglés 7', 'Curso avanzado de inglés', course_type);
     PERFORM add_course('c0507000-0000-4000-a000-000000000007'::UUID,'ENGLISH-08', 6, 'Inglés 8', 'Curso avanzado de inglés', course_type);
-
-
 
     -- Fundamentals
         -- Physics
@@ -21,9 +19,6 @@ BEGIN
     PERFORM add_course('c0305000-0000-4000-a000-000000000005'::UUID, 'PHYSICS-04', 7, 'Termodinámica', 'Estudio de la energía y sus transformaciones', course_type);
         -- Chemistry
     PERFORM add_course('c0205000-0000-4000-a000-000000000005'::UUID, 'CHEM-01', 7, 'Química', 'Fundamentos de química general', course_type);
-    PERFORM add_course('c0408000-0000-4000-a000-000000000008'::UUID, 'CIVL-01', 8, 'Materiales para Ingeniería Civil', 'Estudio de propiedades y aplicaciones de materiales en ingeniería civil', course_type);
-    PERFORM add_course('c0508000-0000-4000-a000-000000000008'::UUID, 'CIVL-02', 7, 'Procesos constructivos', 'Técnicas y métodos de construcción en ingeniería civil', course_type);
-
         -- Logic
     PERFORM add_course('c0306000-0000-4000-a000-000000000606'::UUID, 'COMP-01', 7, 'Programación', 'Introducción a la programación', course_type);
     PERFORM add_course('c0404000-0000-4000-a000-000000000004'::UUID, 'COMP-02', 7, 'Estructuras de datos', 'Estudio de estructuras de datos y algoritmos', course_type);
