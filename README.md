@@ -86,6 +86,11 @@ Including the separation in some schemas that help to organize the data in a mor
 
 This separation allows for better organization and management of data.
 
+## Interface Screenshots \<academic\>
+
+![root](./resources/img/ahub-root.png "root")
+![acaedmic](./resources/img/ahub-academic.png "academic")
+
 ## Contributing
 
 We welcome contributions to Academic Hub! Please follow these steps to contribute:

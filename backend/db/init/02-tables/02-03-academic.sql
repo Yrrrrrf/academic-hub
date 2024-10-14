@@ -29,7 +29,7 @@ CREATE INDEX idx_program_code ON academic.program(code);
 CREATE INDEX idx_program_degree_level ON academic.program(degree_level);
 
 -- Program Category: Defines the main categories of programs
-CREATE TYPE academic.course_category_enum AS ENUM (
+CREATE TYPE academic.course_category AS ENUM (
     'basic',  -- any general education courses
     'core',  -- some specific courses required for the program
     'advanced'  -- specialized courses for the program
@@ -41,7 +41,7 @@ CREATE TABLE academic.course (
     title VARCHAR(255) NOT NULL,
     description TEXT,
     credits NUMERIC(2,0) NOT NULL,
-    category academic.course_category_enum,
+    category academic.course_category,
     is_active BOOLEAN DEFAULT true
 );
 

@@ -53,3 +53,4 @@ for schema, router in zip(schemas, schema_routers):
 
 # print the total count of routes generated depending on the schemas
 print(f"\033[94m{sum([len(router.routes) for router in schema_routers]):>8}\033[0m\n")
+ 

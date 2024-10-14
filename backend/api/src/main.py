@@ -16,6 +16,7 @@ config: Config = Config(  # * Set the configuration
     EMAIL = "fernandorezacampos@gmail.com",
 )
 config.set_app_data(app)  # Set the app metadata
+
 config.setup_logging()  # Setup logging (add some color to the logs)
 
 
@@ -25,7 +26,6 @@ config.setup_logging()  # Setup logging (add some color to the logs)
     # test_router,
     metadata,  # Metadata routes (for getting metadata about the database)
     *schema_routers  # ^ unpack the routers
-
 ]]  # Include the routes in the FastAPI application
 
 # * Startup event
